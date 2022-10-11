@@ -1,33 +1,20 @@
-
-CREATE TABLE breed
-(
-    breed_name       TEXT,
-    food_eaten_daily INT,
-    regime_type      VARCHAR(100),
-    era              INT,
-    biome_needed     VARCHAR(100),
-    price            INT,
-    PRIMARY KEY (breed_name),
-    FOREIGN KEY (regime_type) REFERENCES food_supply (food_type)
+CREATE TABLE team (
+    id_team INT,
+    team_type INT,
+    vehicle_type VARCHAR(100),
+    PRIMARY KEY (id_team)
 );
 
 
-
-CREATE TABLE dinosaur
+CREATE TABLE enclosure
 (
-    dinosaur_name TEXT,
-    breed_name    TEXT,
-    id_enclosure  INT,
-    creation_date DATE,
-    gender        TEXT,
-    height        INT,
-    weigh         INT,
-    id_employees      INT,
-    PRIMARY KEY (dinosaur_name),
-    FOREIGN KEY (breed_name) REFERENCES breed (breed_name),
-    FOREIGN KEY (id_enclosure) REFERENCES enclosure(id_enclosure),
-    FOREIGN KEY (id_employees) REFERENCES employees(id_employee_member)
-
+    id_enclosure     INT,
+    type             VARCHAR(100),
+    biome            VARCHAR(100),
+    id_team          INT,
+    maintenance_cost VARCHAR(100),
+    PRIMARY KEY (id_enclosure),
+    FOREIGN KEY (id_team) REFERENCES team(id_team)
 );
 
 
@@ -38,6 +25,20 @@ CREATE TABLE food_supply
     price INT,
     PRIMARY KEY (food_type)
 );
+
+CREATE TABLE breed
+(
+    breed_name       VARCHAR(100),
+    food_eaten_daily INT,
+    regime_type      VARCHAR(100),
+    era              INT,
+    biome_needed     VARCHAR(100),
+    price            INT,
+    PRIMARY KEY (breed_name),
+    FOREIGN KEY (regime_type) REFERENCES food_supply (food_type)
+);
+
+
 
 CREATE TABLE employees
 (
@@ -52,33 +53,30 @@ CREATE TABLE employees
     FOREIGN KEY (id_team) REFERENCES team (id_team)
 );
 
-CREATE TABLE team (
-    id_team INT,
-    team_type INT,
-    vehicle_type TEXT,
-    PRIMARY KEY (id_team)
-);
 
-
-CREATE TABLE enclosure
+CREATE TABLE dinosaur
 (
-    id_enclosure     INT,
-    type             VARCHAR(100),
-    biome            VARCHAR(100),
-    id_team          VARCHAR(100),
-    maintenance_cost VARCHAR(100),
-    PRIMARY KEY (id_enclosure),
-    FOREIGN KEY (id_team) REFERENCES team(id_team)
-);
+    dinosaur_name VARCHAR(100),
+    breed_name    VARCHAR(100),
+    id_enclosure  INT,
+    creation_date DATE,
+    gender        VARCHAR(100),
+    height        INT,
+    weigh         INT,
+    id_employees      INT,
+    PRIMARY KEY (dinosaur_name),
+    FOREIGN KEY (breed_name) REFERENCES breed (breed_name),
+    FOREIGN KEY (id_enclosure) REFERENCES enclosure(id_enclosure),
+    FOREIGN KEY (id_employees) REFERENCES employees(id_employee_member)
 
+);
 
 
 CREATE TABLE team_organisation(
     id_enclosure INT,
     id_team INT,
 
-    PRIMARY KEY (id_team),
-    PRIMARY KEY (id_enclosure),
+    PRIMARY KEY (id_team, id_enclosure),
     FOREIGN KEY (id_team) REFERENCES team(id_team),
     FOREIGN KEY (id_enclosure) REFERENCES enclosure(id_enclosure)
 );
