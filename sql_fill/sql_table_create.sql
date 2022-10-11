@@ -1,41 +1,41 @@
-CREATE TABLE team (
+# DROP TABLE teams, enclosures, employees, dinosaurs, breeds, food_supplies, teams_organisations
+
+
+CREATE TABLE teams (
     id_team INT,
-    team_type INT,
+    team_type VARCHAR(100),
     vehicle_type VARCHAR(100),
     PRIMARY KEY (id_team)
 );
 
 
-CREATE TABLE enclosure
+CREATE TABLE enclosures
 (
     id_enclosure     INT,
-    type             VARCHAR(100),
     biome            VARCHAR(100),
-    id_team          INT,
     maintenance_cost VARCHAR(100),
-    PRIMARY KEY (id_enclosure),
-    FOREIGN KEY (id_team) REFERENCES team(id_team)
+    PRIMARY KEY (id_enclosure)
 );
 
 
 
-CREATE TABLE food_supply
+CREATE TABLE food_supplies
 (
     food_type  VARCHAR(100),
     price INT,
     PRIMARY KEY (food_type)
 );
 
-CREATE TABLE breed
+CREATE TABLE breeds
 (
     breed_name       VARCHAR(100),
     food_eaten_daily INT,
     regime_type      VARCHAR(100),
-    era              INT,
+    era              VARCHAR(100),
     biome_needed     VARCHAR(100),
     price            INT,
     PRIMARY KEY (breed_name),
-    FOREIGN KEY (regime_type) REFERENCES food_supply (food_type)
+    FOREIGN KEY (regime_type) REFERENCES food_supplies (food_type)
 );
 
 
@@ -46,15 +46,15 @@ CREATE TABLE employees
     id_team                INT,
     family_name            VARCHAR(100),
     surname                VARCHAR(100),
-    phone_number           INT,
-    social_security_member INT,
+    phone_number            VARCHAR(100),
+    social_security_member   VARCHAR(100),
     emergency_contact      VARCHAR(100),
     PRIMARY KEY (id_employee_member),
-    FOREIGN KEY (id_team) REFERENCES team (id_team)
+    FOREIGN KEY (id_team) REFERENCES teams (id_team)
 );
 
 
-CREATE TABLE dinosaur
+CREATE TABLE dinosaurs
 (
     dinosaur_name VARCHAR(100),
     breed_name    VARCHAR(100),
@@ -65,18 +65,18 @@ CREATE TABLE dinosaur
     weigh         INT,
     id_employees      INT,
     PRIMARY KEY (dinosaur_name),
-    FOREIGN KEY (breed_name) REFERENCES breed (breed_name),
-    FOREIGN KEY (id_enclosure) REFERENCES enclosure(id_enclosure),
+    FOREIGN KEY (breed_name) REFERENCES breeds (breed_name),
+    FOREIGN KEY (id_enclosure) REFERENCES enclosures(id_enclosure),
     FOREIGN KEY (id_employees) REFERENCES employees(id_employee_member)
 
 );
 
 
-CREATE TABLE team_organisation(
+CREATE TABLE teams_organisations(
     id_enclosure INT,
     id_team INT,
 
     PRIMARY KEY (id_team, id_enclosure),
-    FOREIGN KEY (id_team) REFERENCES team(id_team),
-    FOREIGN KEY (id_enclosure) REFERENCES enclosure(id_enclosure)
+    FOREIGN KEY (id_team) REFERENCES teams(id_team),
+    FOREIGN KEY (id_enclosure) REFERENCES enclosures(id_enclosure)
 );
