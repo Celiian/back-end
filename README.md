@@ -82,7 +82,7 @@ Send one breed
 
 Replace all employee’s data
 
-POST 
+## POST 
 
 ```/enclosures/ et données dans le body json```
 
@@ -98,7 +98,7 @@ POST
 
 ```/food_supplies/{data}```
 
-   Create new food type (?)
+   Create new food type
 
 ```/teams/{data}```
 
@@ -138,3 +138,30 @@ Edit a team
 ```/employees/{id} donnée body json```
 
 Edit an employee
+
+
+## DELETE
+
+```/enclosures/ et données dans le body json```
+
+   Delete new enclosure
+
+```/dinosaurs/{data}```
+
+   Delete new dinosaur
+
+```/breeds/{data}```
+
+   Delete new dinosaur breed
+
+```/food_supplies/{data}```
+
+   Delete new food type
+
+```/teams/{data}```
+
+   Delete new team
+
+```/employees/{data}```
+
+   Delete new employee
