@@ -1,6 +1,7 @@
 class CustomError(Exception):
     """
     Custom Error
+
     :status_code: INT An existing status code (for ex : 404)
     :content: JSON Some content to be sent to the user
     """

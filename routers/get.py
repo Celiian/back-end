@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from db.get import *
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-
 router = APIRouter()
 
 
@@ -11,13 +10,11 @@ class Message(BaseModel):
 
 
 @router.get("/enclosures", status_code=200,
-            description="Get all existing enclosures",
-            responses={
-                404: {"model": Message}
-            })
+            description="Get all existing enclosures",)
 async def enclosures():
     """
     Send all enclosures
+
     :return: JSON A status code and the data
     """
     data = get_enclosures()
@@ -36,6 +33,7 @@ async def enclosures():
 async def enclosure(id: int):
     """
     Send a specific enclosure
+
     :param id: INT REQUIRED The id of the enclosure
     :return: JSON A status code and the data
     """
@@ -61,6 +59,7 @@ async def enclosure(id: int):
 async def enclosure_dinosaurs(id: int):
     """
     Send all dinosaurs living in an enclosure
+
     :param id: INT REQUIRED The id of the enclosure
     :return: JSON A status code and the data
     """
@@ -86,6 +85,7 @@ async def enclosure_dinosaurs(id: int):
 async def enclosure_teams(id: int):
     """
     Send all teams working in an enclosure
+
     :param id: INT REQUIRED The id of the enclosure
     :return: JSON A status code and the data
     """
@@ -111,6 +111,7 @@ async def enclosure_teams(id: int):
 async def enclosure_teams_employees(id: int):
     """
     Send all employees working in an enclosure
+
     :param id: INT REQUIRED The id of the enclosure
     :return: JSON A status code and the data
     """

@@ -13,6 +13,7 @@ app.include_router(get.router)
 async def custom_err(request: Request, exc: CustomError):
     """
     Initialisation of the custom error
+
     :param request: request of the user to be sent back (not used but necessary)
     :param exc: CLASS the custom error class
     :return: JSON The response with a status code and a message

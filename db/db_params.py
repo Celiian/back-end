@@ -5,6 +5,7 @@ from password import returnPassword
 def selectData(query, record = None):
     """
     connect to the database and perform a query
+
     :param query:STRING REQUIRED the query to be made
     :param record: STRING OPTIONAL
     :return: LIST all the data from the query
