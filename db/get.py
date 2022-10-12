@@ -136,6 +136,7 @@ def get_team(id):
     """
     Request for team()
 
+    :param id: INT REQUIRED The id of the team
     :return: LIST The data from the database
     """
     query = (f"""
@@ -153,6 +154,7 @@ def get_team_employees(id):
     """
     Request for team_employees()
 
+    :param id: INT REQUIRED The id of the team
     :return: LIST The data from the database
     """
     query = (f"""
@@ -171,6 +173,7 @@ def get_team_enclosures(id):
     """
     Request for team_enclosures()
 
+    :param id: INT REQUIRED The id of the team
     :return: LIST The data from the database
     """
     query = (f"""
@@ -206,6 +209,7 @@ def get_employee(id):
     """
     Request for employee()
 
+    :param id: INT REQUIRED The id of the employee
     :return: LIST The data from the database
     """
     query = (f"""
@@ -238,6 +242,7 @@ def get_food_supply(food_type):
     """
     Request for food_supply()
 
+    :param id: INT REQUIRED The id of the food_supply
     :return: LIST The data from the database
     """
     query = (f"""
@@ -249,3 +254,56 @@ def get_food_supply(food_type):
     data = selectData(query, record)
 
     return data
+
+
+def get_dinosaurs():
+    """
+    Request for dinosaurs()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT dinosaurs.* FROM dinosaurs
+                """)
+
+    data = selectData(query)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+def get_dinosaur(name):
+    """
+    Request for dinosaurs()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT dinosaurs.* FROM dinosaurs
+              WHERE dinosaur_name = %s
+                """)
+
+    record = [name]
+    data = selectData(query, record)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+def get_dinosaur_breed(name):
+    """
+    Request for dinosaurs()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT breeds.* FROM dinosaurs, breeds
+              WHERE dinosaur_name = %s
+              AND dinosaurs.breed_name = breeds.breed_name
+                """)
+
+    record = [name]
+    data = selectData(query, record)
+
+    new_data = formate_date(data)
+    return new_data
