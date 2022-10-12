@@ -179,3 +179,34 @@ def get_team_enclosures(id):
 
     return data
 
+
+def get_employees():
+    """
+    Request for employees()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT employees.* FROM employees
+                """)
+
+    data = selectData(query)
+
+    return data
+
+
+def get_employee(id):
+    """
+    Request for employee()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT employees.* FROM employees
+               WHERE id_employee_member = %s
+                """)
+
+    record = [id]
+    data = selectData(query, record)
+
+    return data
