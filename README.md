@@ -50,7 +50,12 @@ Send one employee
 
 ```/food_supplies```
 
-Send all food supply
+Send all food supplies
+
+
+```/food_supplies/{id}```
+
+Send on food supply
 
 ```/dinosaurs```
 
