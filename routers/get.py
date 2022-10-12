@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from db.get import *
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-
 router = APIRouter()
 
 
@@ -11,7 +10,9 @@ class Message(BaseModel):
 
 
 @router.get("/enclosures", status_code=200,
-            description="Get all existing enclosures", )
+            description="Get all existing enclosures"
+            )
+
 async def enclosures():
     """
     Send all enclosures
@@ -209,10 +210,25 @@ async def team_employees(id: int):
 async def team_enclosures(id: int):
     """
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     Send all enclosures managed by a team
 =======
     Send a all enclosures managed by a team
 >>>>>>> 4c4cf02 (FEATURE/ teams request done, commented and clean)
+=======
+    Send a all enclosures managed by a team
+>>>>>>> adf72f5 (FEATURE/ teams request done, commented and clean)
+=======
+    Send all enclosures managed by a team
+>>>>>>> b6ac9d1 (FEATURE/ employees request done, comented and clean)
+=======
+    Send all enclosures managed by a team
+=======
+    Send a all enclosures managed by a team
+>>>>>>> 4c4cf02 (FEATURE/ teams request done, commented and clean)
+>>>>>>> 1ce895d (MERGE/ merging FEATURE/GET_employee into FEATURE/GET)
 
     :param id: INT REQUIRED The id of the enclosure
     :return: JSON A status code and the data
@@ -228,7 +244,6 @@ async def team_enclosures(id: int):
             status_code=404,
             content={"Message": "this id does not exist"}
         )
-
 
 @router.get("/employees",
             status_code=200,
