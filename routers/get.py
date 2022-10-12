@@ -211,6 +211,7 @@ async def team_enclosures(id: int):
     """
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     Send all enclosures managed by a team
 =======
     Send a all enclosures managed by a team
@@ -218,6 +219,9 @@ async def team_enclosures(id: int):
 =======
     Send a all enclosures managed by a team
 >>>>>>> adf72f5 (FEATURE/ teams request done, commented and clean)
+=======
+    Send all enclosures managed by a team
+>>>>>>> b6ac9d1 (FEATURE/ employees request done, comented and clean)
 
     :param id: INT REQUIRED The id of the enclosure
     :return: JSON A status code and the data

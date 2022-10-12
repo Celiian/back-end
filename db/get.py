@@ -218,7 +218,6 @@ def get_employee(id):
 
     return data
 
-
 def get_food_supplies():
     """
     Request for food_supplies()
