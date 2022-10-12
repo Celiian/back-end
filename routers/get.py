@@ -207,12 +207,57 @@ async def team_employees(id: int):
             })
 async def team_enclosures(id: int):
     """
-    Send a all enclosures managed by a team
+    Send all enclosures managed by a team
 
     :param id: INT REQUIRED The id of the enclosure
     :return: JSON A status code and the data
     """
     data = get_team_enclosures(id)
+    if data:
+        return JSONResponse(
+            status_code=200,
+            content=data
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this id does not exist"}
+        )
+
+
+@router.get("/employees",
+            status_code=200,
+            description="Get all emploeyees",
+            responses={
+                404: {"model": Message}
+            })
+async def employees():
+    """
+    Send all employees
+
+    :return: JSON A status code and the data
+    """
+    data = get_employees()
+    return JSONResponse(
+        status_code=200,
+        content=data
+    )
+
+
+@router.get("/employees/{id}",
+            status_code=200,
+            description="Get an employee",
+            responses={
+                404: {"model": Message}
+            })
+async def employee(id: int):
+    """
+    Send one specified employee
+
+    :param id: INT REQUIRED The id of the enclosure
+    :return: JSON A status code and the data
+    """
+    data = get_employee(id)
     if data:
         return JSONResponse(
             status_code=200,
