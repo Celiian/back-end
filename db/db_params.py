@@ -1,8 +1,9 @@
 import mysql.connector as mc
-from password import returnPassword
+
+password = "Fontaine2012"
 
 
-def selectData(query, record = None):
+def selectData(query, record=None):
     """
     connect to the database and perform a query
 
@@ -10,7 +11,6 @@ def selectData(query, record = None):
     :param record: STRING OPTIONAL
     :return: LIST all the data from the query
     """
-    password = returnPassword()
 
     db = mc.connect(user='root',
                     password=password,
@@ -23,3 +23,4 @@ def selectData(query, record = None):
     for i in my_cursor:
         result.append(i)
     return result
+

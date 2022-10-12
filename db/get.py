@@ -115,3 +115,233 @@ def get_enclosure_teams_employees(id):
     data = selectData(query, record)
 
     return data
+
+
+def get_teams():
+    """
+    Request for teams()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT * FROM teams
+                """)
+
+    data = selectData(query)
+
+    return data
+
+
+def get_team(id):
+    """
+    Request for team()
+
+    :param id: INT REQUIRED The id of the team
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT * FROM teams
+              WHERE id_team = %s
+                """)
+
+    record = [id]
+    data = selectData(query, record)
+
+    return data
+
+
+def get_team_employees(id):
+    """
+    Request for team_employees()
+
+    :param id: INT REQUIRED The id of the team
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT employees.* FROM employees, teams
+              WHERE teams.id_team = %s 
+              AND teams.id_team = employees.id_team
+                """)
+
+    record = [id]
+    data = selectData(query, record)
+
+    return data
+
+
+def get_team_enclosures(id):
+    """
+    Request for team_enclosures()
+
+    :param id: INT REQUIRED The id of the team
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT enclosures.* FROM enclosures, teams, teams_organisations
+              WHERE teams.id_team = %s 
+              AND teams_organisations.id_team = teams.id_team
+              AND teams_organisations.id_enclosure = enclosures.id_enclosure
+              
+                """)
+
+    record = [id]
+    data = selectData(query, record)
+
+    return data
+
+
+def get_employees():
+    """
+    Request for employees()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT employees.* FROM employees
+                """)
+
+    data = selectData(query)
+
+    return data
+
+
+def get_employee(id):
+    """
+    Request for employee()
+
+    :param id: INT REQUIRED The id of the employee
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT employees.* FROM employees
+               WHERE id_employee_member = %s
+                """)
+
+    record = [id]
+    data = selectData(query, record)
+
+    return data
+
+def get_food_supplies():
+    """
+    Request for food_supplies()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT food_supplies.* FROM food_supplies
+                """)
+
+    data = selectData(query)
+
+    return data
+
+
+def get_food_supply(food_type):
+    """
+    Request for food_supply()
+
+    :param id: INT REQUIRED The id of the food_supply
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT food_supplies.* FROM food_supplies
+               WHERE food_type = %s
+                """)
+
+    record = [food_type]
+    data = selectData(query, record)
+
+    return data
+
+
+def get_dinosaurs():
+    """
+    Request for dinosaurs()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT dinosaurs.* FROM dinosaurs
+                """)
+
+    data = selectData(query)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+def get_dinosaur(name):
+    """
+    Request for dinosaurs()
+
+    :param name: STR REQUIRED The name of the dinosaur
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT dinosaurs.* FROM dinosaurs
+              WHERE dinosaur_name = %s
+                """)
+
+    record = [name]
+    data = selectData(query, record)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+def get_dinosaur_breed(name):
+    """
+    Request for dinosaurs()
+
+    :param name: STR REQUIRED The name of the dinosaur
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT breeds.* FROM dinosaurs, breeds
+              WHERE dinosaur_name = %s
+              AND dinosaurs.breed_name = breeds.breed_name
+                """)
+
+    record = [name]
+    data = selectData(query, record)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+
+
+def get_breeds():
+    """
+    Request for breeds()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT breeds.* FROM breeds
+                """)
+
+    data = selectData(query)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+def get_breed(name):
+    """
+    Request for breed()
+
+    :param name: STR REQUIRED The name of the breed
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT breeds.* FROM breeds
+              WHERE breed_name = %s
+                """)
+
+    record = [name]
+    data = selectData(query, record)
+
+    new_data = formate_date(data)
+    return new_data
