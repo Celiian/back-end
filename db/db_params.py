@@ -1,6 +1,6 @@
 import mysql.connector as mc
 
-password = "Fontaine2012"
+password = "password"
 
 
 def selectData(query, record=None):
