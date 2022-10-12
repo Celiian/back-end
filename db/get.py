@@ -6,7 +6,9 @@ from datetime import date
 
 def formate_date(data):
     """
-    This function will change the type of the date (datetime.date) in a tuple (by sending the new values in an other tuple)
+    This function will change the type of the date (datetime.date) in a tuple
+    (by sending the new values in another tuple)
+
     :param data: TUPLE OR LIST REQUIRED The tuple
     :return: TUPLE The new tuple
     """
@@ -26,6 +28,7 @@ def formate_date(data):
 def get_enclosures():
     """
     Request for enclosures()
+
     :return: LIST The data from the database
     """
     query = (f"""
@@ -40,6 +43,7 @@ def get_enclosures():
 def get_enclosure(id):
     """
      Request for enclosure()
+
     :param id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
@@ -57,6 +61,7 @@ def get_enclosure(id):
 def get_enclosure_dinosaurs(id):
     """
     Request for enclosure_dinosaurs()
+
     :param id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
@@ -77,6 +82,7 @@ get_enclosure_dinosaurs(2)
 def get_enclosure_teams(id):
     """
     Request for enclosure_teams()
+
     :param id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
@@ -94,6 +100,7 @@ def get_enclosure_teams(id):
 def get_enclosure_teams_employees(id):
     """
     Request for enclosure_teams_employees()
+
     :param id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
