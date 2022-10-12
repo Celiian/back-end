@@ -24,3 +24,27 @@ def patch_enclosures(id, cost, biome):
     record.append(id)
     query += " WHERE id_enclosure = %s"
     return update_data(query, record)
+
+
+def patch_teams(id, team_type, vehicle_type):
+    """
+    Edit teams properties
+
+    :param id: INT REQUIRED team id
+    :param team_type: STRING OPTIONAL type of category of a team
+    :param vehicle_type: STRING OPTIONAL type of vehicle for a team
+    :return: BOOLEAN Table updated or not
+    """
+    query = "UPDATE teams SET"
+    record = []
+    if team_type:
+        record.append(team_type)
+        query += " team_type = %s"
+    if vehicle_type:
+        if team_type:
+            query += ","
+        record.append(vehicle_type)
+        query += " vehicle_type = %s"
+    record.append(id)
+    query += " WHERE id_team = %s"
+    return update_data(query, record)
