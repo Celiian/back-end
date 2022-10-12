@@ -115,3 +115,74 @@ def get_enclosure_teams_employees(id):
     data = selectData(query, record)
 
     return data
+
+
+def get_teams():
+    """
+    Request for teams()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT * FROM teams
+                """)
+
+    data = selectData(query)
+
+    return data
+
+
+def get_team(id):
+    """
+    Request for team()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT * FROM teams
+              WHERE id_team = %s
+                """)
+
+    record = [id]
+    data = selectData(query, record)
+
+    return data
+
+
+def get_team_employees(id):
+    """
+    Request for team_employees()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT employees.* FROM employees, teams
+              WHERE teams.id_team = %s 
+              AND teams.id_team = employees.id_team
+                """)
+
+    record = [id]
+    data = selectData(query, record)
+
+    return data
+
+
+def get_team_enclosures(id):
+    """
+    Request for team_enclosures()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT enclosures.* FROM enclosures, teams, teams_organisations
+              WHERE teams.id_team = %s 
+              AND teams_organisations.id_team = teams.id_team
+              AND teams_organisations.id_enclosure = enclosures.id_enclosure
+              
+                """)
+
+    record = [id]
+    data = selectData(query, record)
+
+    return data
+
