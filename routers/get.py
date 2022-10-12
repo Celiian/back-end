@@ -12,7 +12,6 @@ class Message(BaseModel):
 @router.get("/enclosures", status_code=200,
             description="Get all existing enclosures"
             )
-
 async def enclosures():
     """
     Send all enclosures
@@ -303,16 +302,10 @@ async def food_supplies():
     :return: JSON A status code and the data
     """
     data = get_food_supplies()
-    if data:
-        return JSONResponse(
-            status_code=200,
-            content=data
-        )
-    else:
-        return JSONResponse(
-            status_code=404,
-            content={"Message": "this id does not exist"}
-        )
+    return JSONResponse(
+        status_code=200,
+        content=data
+    )
 
 
 @router.get("/food_supplies/{food_type}",
@@ -325,7 +318,7 @@ async def food_supply(food_type: str):
     """
     Send one specified employee
 
-    :param id: INT REQUIRED The id of the enclosure
+    :param food_type: STRING REQUIRED The id of the enclosure
     :return: JSON A status code and the data
     """
     data = get_food_supply(food_type)
@@ -337,5 +330,74 @@ async def food_supply(food_type: str):
     else:
         return JSONResponse(
             status_code=404,
-            content={"Message": "this id does not exist"}
+            content={"Message": "this food does not exist"}
+        )
+
+
+@router.get("/dinosaurs",
+            status_code=200,
+            description="Get all dinosaurs",
+            responses={
+                404: {"model": Message}
+            })
+async def dinosaurs():
+    """
+    Send all dinosaurs
+
+    :return: JSON A status code and the data
+    """
+    data = get_dinosaurs()
+    return JSONResponse(
+        status_code=200,
+        content=data
+    )
+
+
+@router.get("/dinosaurs/{name}",
+            status_code=200,
+            description="Get one dinosaur",
+            responses={
+                404: {"model": Message}
+            })
+async def dinosaur(name: str):
+    """
+    Send one dinosaur
+
+    :return: JSON A status code and the data
+    """
+    data = get_dinosaur(name)
+    if data:
+        return JSONResponse(
+            status_code=200,
+            content=data
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this name does not exist"}
+        )
+
+
+@router.get("/dinosaurs/{name}/breed",
+            status_code=200,
+            description="Get one dinosaur's breed",
+            responses={
+                404: {"model": Message}
+            })
+async def dinosaur_breed(name: str):
+    """
+    Send one dinosaur
+
+    :return: JSON A status code and the data
+    """
+    data = get_dinosaur_breed(name)
+    if data:
+        return JSONResponse(
+            status_code=200,
+            content=data
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this name does not exist"}
         )
