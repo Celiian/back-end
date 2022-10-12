@@ -1,7 +1,6 @@
 import mysql.connector as mc
 from password import returnPassword
 
-
 def selectData(query, record = None):
     """
     Connect to the database and perform a query
