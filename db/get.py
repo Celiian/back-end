@@ -2,7 +2,14 @@ import datetime
 
 from db.db_params import *
 from datetime import date
+
+
 def formate_date(data):
+    """
+    This function will change the type of the date (datetime.date) in a tuple (by sending the new values in an other tuple)
+    :param data: TUPLE OR LIST REQUIRED The tuple
+    :return: TUPLE The new tuple
+    """
     new_data = []
     for i in range(0, len(data)):
         temp_data = []
@@ -14,7 +21,13 @@ def formate_date(data):
 
         new_data.append(temp_data)
     return new_data
+
+
 def get_enclosures():
+    """
+    Request for enclosures()
+    :return: LIST The data from the database
+    """
     query = (f"""
        SELECT * FROM enclosures
          """)
@@ -25,6 +38,11 @@ def get_enclosures():
 
 
 def get_enclosure(id):
+    """
+     Request for enclosure()
+    :param id: INT REQUIRED The id of the enclosure
+    :return: LIST The data from the database
+    """
     query = (f"""
           SELECT * FROM enclosures
           WHERE id_enclosure = %s
@@ -37,20 +55,31 @@ def get_enclosure(id):
 
 
 def get_enclosure_dinosaurs(id):
+    """
+    Request for enclosure_dinosaurs()
+    :param id: INT REQUIRED The id of the enclosure
+    :return: LIST The data from the database
+    """
     query = (f"""
           SELECT * FROM dinosaurs
           WHERE id_enclosure = %s
             """)
     record = [id]
     data = selectData(query, record)
-
     new_data = formate_date(data)
 
     return new_data
 
+
 get_enclosure_dinosaurs(2)
 
+
 def get_enclosure_teams(id):
+    """
+    Request for enclosure_teams()
+    :param id: INT REQUIRED The id of the enclosure
+    :return: LIST The data from the database
+    """
     query = (f"""
           SELECT teams.* FROM teams, teams_organisations
           WHERE id_enclosure = %s AND teams.id_team = teams_organisations.id_team
@@ -61,7 +90,13 @@ def get_enclosure_teams(id):
 
     return data
 
+
 def get_enclosure_teams_employees(id):
+    """
+    Request for enclosure_teams_employees()
+    :param id: INT REQUIRED The id of the enclosure
+    :return: LIST The data from the database
+    """
     query = (f"""
           SELECT employees.* FROM employees, teams, teams_organisations
           WHERE id_enclosure = %s
@@ -73,4 +108,3 @@ def get_enclosure_teams_employees(id):
     data = selectData(query, record)
 
     return data
-

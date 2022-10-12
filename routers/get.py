@@ -2,9 +2,9 @@ from fastapi import APIRouter
 from db.get import *
 from fastapi.responses import JSONResponse
 from customException import CustomError
+from pydantic import BaseModel
 
 router = APIRouter()
-from pydantic import BaseModel
 
 
 class Message(BaseModel):
@@ -16,8 +16,11 @@ class Message(BaseModel):
             responses={
                 404: {"model": Message}
             })
-
 async def enclosures():
+    """
+    Send all enclosures
+    :return: JSON A status code and the data
+    """
     data = get_enclosures()
     return JSONResponse(
         status_code=200,
@@ -32,6 +35,11 @@ async def enclosures():
                 404: {"model": Message}
             })
 async def enclosure(id: int):
+    """
+    Send a specific enclosure
+    :param id: INT REQUIRED The id of the enclosure
+    :return: JSON A status code and the data
+    """
     data = get_enclosure(id)
     if data:
         return JSONResponse(
@@ -51,7 +59,12 @@ async def enclosure(id: int):
             responses={
                 404: {"model": Message}
             })
-async def enclosure(id: int):
+async def enclosure_dinosaurs(id: int):
+    """
+    Send all dinosaurs living in an enclosure
+    :param id: INT REQUIRED The id of the enclosure
+    :return: JSON A status code and the data
+    """
     data = get_enclosure_dinosaurs(id)
     if data:
         return JSONResponse(
@@ -71,7 +84,12 @@ async def enclosure(id: int):
             responses={
                 404: {"model": Message}
             })
-async def enclosure(id: int):
+async def enclosure_teams(id: int):
+    """
+    Send all teams working in an enclosure
+    :param id: INT REQUIRED The id of the enclosure
+    :return: JSON A status code and the data
+    """
     data = get_enclosure_teams(id)
     if data:
         return JSONResponse(
@@ -91,7 +109,12 @@ async def enclosure(id: int):
             responses={
                 404: {"model": Message}
             })
-async def enclosure(id: int):
+async def enclosure_teams_employees(id: int):
+    """
+    Send all employees working in an enclosure
+    :param id: INT REQUIRED The id of the enclosure
+    :return: JSON A status code and the data
+    """
     data = get_enclosure_teams_employees(id)
     if data:
         return JSONResponse(
