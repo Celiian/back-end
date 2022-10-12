@@ -1,4 +1,5 @@
 from db.db_params import *
+from db.get import get_food_supply
 
 
 def patch_enclosures(id, cost, biome):
@@ -23,4 +24,57 @@ def patch_enclosures(id, cost, biome):
         query += " biome = %s"
     record.append(id)
     query += " WHERE id_enclosure = %s"
+    return update_data(query, record)
+
+
+def patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price):
+    """
+    Edit breed informations
+
+    :param name: STRING REQUIRED breed name
+    :param food_eaten_daily: INT OPTIONAL quantity of food eaten daily
+    :param regime_type: STRING OPTIONAL breed regime type
+    :param era: STRING OPTIONAL breed living era
+    :param biome_needed: STRING OPTIONAL breed biome needed
+    :param price: INT OPTIONAL breed price (/kg)
+    :return: BOOLEAN Table updated or not
+    """
+    query = "UPDATE breeds SET"
+    record = []
+    preceded = False
+
+    if food_eaten_daily:
+        record.append(food_eaten_daily)
+        query += " food_eaten_daily = %s"
+        preceded = True
+
+    if get_food_supply(regime_type):
+        if preceded:
+            query += ","
+        record.append(regime_type)
+        query += " regime_type = %s"
+        preceded = True
+
+    if era:
+        if preceded:
+            query += ","
+        record.append(era)
+        query += " era = %s"
+        preceded = True
+
+    if biome_needed:
+        if preceded:
+            query += ","
+        record.append(biome_needed)
+        query += " biome_needed = %s"
+        preceded = True
+
+    if price:
+        if preceded:
+            query += ","
+        record.append(price)
+        query += " price = %s"
+
+    record.append(name)
+    query += " WHERE breed_name = %s"
     return update_data(query, record)

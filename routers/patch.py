@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 
-from db.patch import patch_enclosures
+from db.patch import patch_enclosures, patch_breeds
 
 router = APIRouter()
 
@@ -37,3 +37,43 @@ async def enclosure(id: int, body: Item):
             status_code=404,
             content={"Message": "Table not updated"}
         )
+
+
+class Breed(BaseModel):
+    food_eaten_daily: int | None
+    regime_type: str | None
+    era: str | None
+    biome_needed: str | None
+    price: int | None
+
+
+@router.patch("/breeds/{name}")
+def breed(name: str, body: Breed):
+    """
+    Edit breed
+
+    :param name: STRING REQUIRED breed name
+    :param body: LIST parameters and values for patch_breeds
+    :return: Message Table updated or not
+    """
+    food_eaten_daily = body.food_eaten_daily
+    regime_type = body.regime_type
+    era = body.era
+    biome_needed = body.biome_needed
+    price = body.price
+
+    print(body)
+
+    res = patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price)
+
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content={"Message": "Table updated"}
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "Table not updated"}
+        )
+
