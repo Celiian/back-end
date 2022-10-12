@@ -218,3 +218,34 @@ def get_employee(id):
 
     return data
 
+
+def get_food_supplies():
+    """
+    Request for food_supplies()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT food_supplies.* FROM food_supplies
+                """)
+
+    data = selectData(query)
+
+    return data
+
+
+def get_food_supply(food_type):
+    """
+    Request for food_supply()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT food_supplies.* FROM food_supplies
+               WHERE food_type = %s
+                """)
+
+    record = [food_type]
+    data = selectData(query, record)
+
+    return data

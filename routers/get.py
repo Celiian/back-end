@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from db.get import *
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+
 router = APIRouter()
 
 
@@ -10,7 +11,7 @@ class Message(BaseModel):
 
 
 @router.get("/enclosures", status_code=200,
-            description="Get all existing enclosures",)
+            description="Get all existing enclosures", )
 async def enclosures():
     """
     Send all enclosures
@@ -262,6 +263,57 @@ async def employee(id: int):
     :return: JSON A status code and the data
     """
     data = get_employee(id)
+    if data:
+        return JSONResponse(
+            status_code=200,
+            content=data
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this id does not exist"}
+        )
+
+
+@router.get("/food_supplies",
+            status_code=200,
+            description="Get all food supplies",
+            responses={
+                404: {"model": Message}
+            })
+async def food_supplies():
+    """
+    Send all food supplies
+
+    :return: JSON A status code and the data
+    """
+    data = get_food_supplies()
+    if data:
+        return JSONResponse(
+            status_code=200,
+            content=data
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this id does not exist"}
+        )
+
+
+@router.get("/food_supplies/{food_type}",
+            status_code=200,
+            description="Get one food supply",
+            responses={
+                404: {"model": Message}
+            })
+async def food_supply(food_type: str):
+    """
+    Send one specified employee
+
+    :param id: INT REQUIRED The id of the enclosure
+    :return: JSON A status code and the data
+    """
+    data = get_food_supply(food_type)
     if data:
         return JSONResponse(
             status_code=200,
