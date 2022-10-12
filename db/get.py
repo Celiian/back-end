@@ -275,6 +275,7 @@ def get_dinosaur(name):
     """
     Request for dinosaurs()
 
+    :param name: STR REQUIRED The name of the dinosaur
     :return: LIST The data from the database
     """
     query = (f"""
@@ -293,12 +294,50 @@ def get_dinosaur_breed(name):
     """
     Request for dinosaurs()
 
+    :param name: STR REQUIRED The name of the dinosaur
     :return: LIST The data from the database
     """
     query = (f"""
               SELECT breeds.* FROM dinosaurs, breeds
               WHERE dinosaur_name = %s
               AND dinosaurs.breed_name = breeds.breed_name
+                """)
+
+    record = [name]
+    data = selectData(query, record)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+
+
+def get_breeds():
+    """
+    Request for breeds()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT breeds.* FROM breeds
+                """)
+
+    data = selectData(query)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+def get_breed(name):
+    """
+    Request for breed()
+
+    :param name: STR REQUIRED The name of the breed
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT breeds.* FROM breeds
+              WHERE breed_name = %s
                 """)
 
     record = [name]

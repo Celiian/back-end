@@ -344,6 +344,7 @@ async def dinosaur(name: str):
     """
     Send one dinosaur
 
+    :param name: STR REQUIRED The name of the dinosaur
     :return: JSON A status code and the data
     """
     data = get_dinosaur(name)
@@ -369,6 +370,7 @@ async def dinosaur_breed(name: str):
     """
     Send one dinosaur
 
+    :param name: STR REQUIRED The name of the dinosaur
     :return: JSON A status code and the data
     """
     data = get_dinosaur_breed(name)
@@ -381,4 +383,50 @@ async def dinosaur_breed(name: str):
         return JSONResponse(
             status_code=404,
             content={"Message": "this name does not exist"}
+        )
+
+
+
+@router.get("/breeds",
+            status_code=200,
+            description="Get all breeds",
+            responses={
+                404: {"model": Message}
+            })
+async def breeds():
+    """
+    Send all breeds
+
+    :return: JSON A status code and the data
+    """
+    data = get_breeds()
+    return JSONResponse(
+        status_code=200,
+        content=data
+    )
+
+
+@router.get("/breeds/{name}",
+            status_code=200,
+            description="Get one dinosaur's breed",
+            responses={
+                404: {"model": Message}
+            })
+async def breed(name: str):
+    """
+    Send one breed
+
+    :param name: STR REQUIRED The name of the breed
+    :return: JSON A status code and the data
+    """
+    data = get_breed(name)
+    if data:
+        return JSONResponse(
+            status_code=200,
+            content=data
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this breed name does not exist"}
         )

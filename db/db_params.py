@@ -1,6 +1,6 @@
 import mysql.connector as mc
 
-password = "password"
+password = "Fontaine2012"
 
 
 def selectData(query, record=None):
@@ -23,3 +23,4 @@ def selectData(query, record=None):
     for i in my_cursor:
         result.append(i)
     return result
+
