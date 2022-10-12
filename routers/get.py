@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from db.get import *
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-
 router = APIRouter()
 
 
@@ -11,7 +10,9 @@ class Message(BaseModel):
 
 
 @router.get("/enclosures", status_code=200,
-            description="Get all existing enclosures", )
+            description="Get all existing enclosures"
+            )
+
 async def enclosures():
     """
     Send all enclosures
