@@ -210,10 +210,14 @@ async def team_employees(id: int):
 async def team_enclosures(id: int):
     """
 <<<<<<< HEAD
+<<<<<<< HEAD
     Send all enclosures managed by a team
 =======
     Send a all enclosures managed by a team
 >>>>>>> 4c4cf02 (FEATURE/ teams request done, commented and clean)
+=======
+    Send a all enclosures managed by a team
+>>>>>>> adf72f5 (FEATURE/ teams request done, commented and clean)
 
     :param id: INT REQUIRED The id of the enclosure
     :return: JSON A status code and the data
@@ -229,7 +233,6 @@ async def team_enclosures(id: int):
             status_code=404,
             content={"Message": "this id does not exist"}
         )
-
 
 @router.get("/employees",
             status_code=200,
