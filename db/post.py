@@ -3,6 +3,19 @@ from db.db_params import insertData
 # Connect with the MySQL Server
 
 
+def postFood(data):
+    """
+    Defines the query string, then calls insertData function using data and post_breed_query as parameter
+
+    :param data: OBJECT Containing all the values to insert in the query
+    :return: BOOL The boolean value that becomes true if post succeeds or false if post fails.
+    """
+    post_food_query = "INSERT INTO food_supplies(food_type, price) VALUES (%s,%s)"
+    res = insertData(post_food_query, data)
+
+    return res
+
+
 def postBreed(data):
     """
     Defines the query string, then calls insertData function using data and post_breed_query as parameter
