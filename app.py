@@ -3,10 +3,11 @@ from exception_error.custom_exception import CustomError
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from routers import get
-
+from routers import delete
 app = FastAPI()
 
 app.include_router(get.router)
+app.include_router(delete.router)
 
 
 @app.exception_handler(CustomError)
