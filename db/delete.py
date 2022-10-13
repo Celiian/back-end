@@ -164,3 +164,44 @@ def delete_dinosaurs(id):
     record = [id]
     res = deleteData(query, record)
     return res
+
+
+
+
+
+def delete_breeds(id):
+    """
+    Request for breeds()
+
+    :return: LIST The data from the database
+    """
+
+    data = get_dinosaurs()
+    for i in range(0, len(data)):
+        if data[i][1] == id:
+            raise CustomError(
+                status_code=400,
+                content=
+                {
+                    "error": "There are still dinosaurs of this breed alive",
+                }
+            )
+
+    data = get_breeds()
+    if not data:
+        raise CustomError(
+            status_code=400,
+            content=
+            {
+                "error": "This breed does not exist",
+            }
+        )
+
+    query = (f"""       
+            DELETE FROM breeds 
+            WHERE breed_name = %s
+            """)
+
+    record = [id]
+    res = deleteData(query, record)
+    return res
