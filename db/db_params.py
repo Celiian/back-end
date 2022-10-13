@@ -1,9 +1,9 @@
 import mysql.connector as mc
 from password import returnPassword
+password = returnPassword()
 
-def update_data(query, record):
-    password = returnPassword()
 
+def update_data(query):
     db = mc.connect(user='root',
                     password=password,
                     host='127.0.0.1',
@@ -11,7 +11,7 @@ def update_data(query, record):
 
     my_cursor = db.cursor()
     try:
-        my_cursor.execute(query, record)
+        my_cursor.execute(query)
         db.commit()
         return True
     except mc.Error:
@@ -25,7 +25,6 @@ def selectData(query, record=None):
     :param record: STRING OPTIONAL
     :return: LIST all the data from the query
     """
-    password = returnPassword()
 
     db = mc.connect(user='root',
                     password=password,
