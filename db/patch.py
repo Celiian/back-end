@@ -1,12 +1,11 @@
-from db.db_params import *
 from db.get import *
 
 
-def patch_enclosures(id, cost, biome):
+def patch_enclosures(id_enclosure, cost, biome):
     """
     Function to edit cost or biome of an enclosure
 
-    :param id: INT REQUIRED id of an enclosure
+    :param id_enclosure: INT REQUIRED id of an enclosure
     :param cost: STRING OPTIONAL maintenance cost of an enclosure
     :param biome: STRING OPTIONAL biome of an enclosure
     :return: BOOLEAN Table updated or not
@@ -22,14 +21,14 @@ def patch_enclosures(id, cost, biome):
             query += ","
         record.append(biome)
         query += " biome = %s"
-    record.append(id)
+    record.append(id_enclosure)
     query += " WHERE id_enclosure = %s"
     return update_data(query, record)
 
 
 def patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price):
     """
-    Edit breed informations
+    Edit breed information
 
     :param name: STRING REQUIRED breed name
     :param food_eaten_daily: INT OPTIONAL quantity of food eaten daily
@@ -82,7 +81,7 @@ def patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price):
 
 def patch_dinosaurs(dinosaur_name, id_enclosure, gender, height, weight, id_employees):
     """
-    Edit dinosaur's informations
+    Edit dinosaur's information
 
     :param dinosaur_name: STRING REQUIRED dinosaur name
     :param id_enclosure: INT OPTIONAL dinosaur enclosure id
@@ -134,11 +133,11 @@ def patch_dinosaurs(dinosaur_name, id_enclosure, gender, height, weight, id_empl
     return update_data(query, record)
 
 
-def patch_employees(id, id_team, family_name, phone_number, emergency_contact):
+def patch_employees(id_employee, id_team, family_name, phone_number, emergency_contact):
     """
-    Edit employees informations
+    Edit employees information
 
-    :param id: INT REQUUIRED
+    :param id_employee: INT REQUIRED
     :param id_team: INT OPTIONAL
     :param family_name: STRING OPTIONAL
     :param phone_number: STRING OPTIONAL
@@ -172,16 +171,16 @@ def patch_employees(id, id_team, family_name, phone_number, emergency_contact):
             query += ","
         record.append(emergency_contact)
         query += " emergency_contact = %s"
-    record.append(id)
+    record.append(id_employee)
     query += "WHERE id_employee_member = %s"
     return update_data(query, record)
 
 
-def patch_teams(id, team_type, vehicle_type):
+def patch_teams(id_team, team_type, vehicle_type):
     """
     Edit teams properties
 
-    :param id: INT REQUIRED team id
+    :param id_team: INT REQUIRED team id
     :param team_type: STRING OPTIONAL type of category of a team
     :param vehicle_type: STRING OPTIONAL type of vehicle for a team
     :return: BOOLEAN Table updated or not
@@ -196,12 +195,21 @@ def patch_teams(id, team_type, vehicle_type):
             query += ","
         record.append(vehicle_type)
         query += " vehicle_type = %s"
-    record.append(id)
+    record.append(id_team)
     query += " WHERE id_team = %s"
     return update_data(query, record)
 
 
 def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
+    """
+    Edit the link between a team and an enclosure
+
+    :param id_enclosure: INT REQUIRED table id that can be replaced
+    :param id_team: INT REQUIRED table id that can be replaced
+    :param new_id_enclosure: INT OPTIONAL the new id to be put in the table
+    :param new_id_team: INT OPTIONAL the new id to be put in the table
+    :return: BOOLEAN Table updated or not
+    """
 
     query = "UPDATE teams_organisations SET"
     record = []
@@ -221,15 +229,3 @@ def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
         query += " AND id_team = %s"
     print(query)
     return update_data(query, record)
-
-
-
-# def patch_teams_id_enclosure(id_team, id_enclosure):
-#     query = "UPDATE teams_organisations SET"
-#     record = []
-#     if id_team:
-#         record.append(id_team)
-#         query += " id_enclosure = %s"
-#
-#     record.append(id_enclosure)
-#     query += " WHERE id_team = %s"

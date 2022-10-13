@@ -13,19 +13,19 @@ class Item(BaseModel):
 
 
 @router.patch("/enclosures/{id}")
-async def enclosure(id: int, body: Item):
+async def enclosure(id_enclosure: int, body: Item):
     """
     Modify an enclosure
 
-    :param id: INT REQUIRED id of an enclosure
-    :param body: LIST parameters and values for patch_enclosures
+    :param id_enclosure: INT REQUIRED id of an enclosure
+    :param body: CLASS of parameters and values for patch_enclosures
     :return: Message Table updated or not
     """
     cost = body.cost
     biome = body.biome
     print(body)
 
-    res = patch_enclosures(id, cost, biome)
+    res = patch_enclosures(id_enclosure, cost, biome)
 
     if res:
         return JSONResponse(
@@ -53,7 +53,7 @@ def breed(name: str, body: Breed):
     Edit breed
 
     :param name: STRING REQUIRED breed name
-    :param body: LIST parameters and values for patch_breeds
+    :param body: CLASS of parameters and values for patch_breeds
     :return: Message Table updated or not
     """
     food_eaten_daily = body.food_eaten_daily
@@ -89,10 +89,10 @@ class Dino(BaseModel):
 @router.patch("/dinosaurs/{name}")
 def dinosaurs(name: str, body: Dino):
     """
-    Edit a dinosaur informations
+    Edit dinosaur information
 
     :param name: STRING REQUIRED dinosaur name
-    :param body: LIST parameters and values for patch_dinosaurs
+    :param body: CLASS of parameters and values for patch_dinosaurs
     :return: Message Table updated or not
     """
     id_enclosure = body.id_enclosure
@@ -126,12 +126,12 @@ class Employee(BaseModel):
 
 
 @router.patch("/employees/{id}")
-def employees(id: int, body: Employee):
+def employees(id_employees: int, body: Employee):
     """
-    Edit employees informations
+    Edit employees information
 
-    :param id: INT REQUIRED id of an employee
-    :param body: LIST parameters and values for patch_employees
+    :param id_employees: INT REQUIRED id of an employee
+    :param body: CLASS of parameters and values for patch_employees
     :return: Message Table updated or not
     """
     id_team = body.id_team
@@ -141,7 +141,7 @@ def employees(id: int, body: Employee):
 
     print(body)
 
-    res = patch_employees(id, id_team, family_name, phone_number, emergency_contact)
+    res = patch_employees(id_employees, id_team, family_name, phone_number, emergency_contact)
 
     if res:
         return JSONResponse(
@@ -161,18 +161,18 @@ class Teams(BaseModel):
 
 
 @router.patch("/teams/{id}")
-def team(id: int, body: Teams):
+def team(id_teams: int, body: Teams):
     """
-    Edit some team informations
+    Edit some team information
 
-    :param id: INT REQUIRED id of a team
-    :param body: LIST parameters and values fot patch_teams
+    :param id_teams: INT REQUIRED id of a team
+    :param body: CLASS of parameters and values fot patch_teams
     :return: Message Table updated or not
     """
     team_type = body.team_type
     vehicle_type = body.vehicle_type
 
-    res = patch_teams(id, team_type, vehicle_type)
+    res = patch_teams(id_teams, team_type, vehicle_type)
 
     if res:
         return JSONResponse(
@@ -195,6 +195,12 @@ class TeamsOrga(BaseModel):
 
 @router.patch("/teams_organisation")
 def teams_organisation(body: TeamsOrga):
+    """
+    Edit the link between team and enclosure
+
+    :param body: CLASS of parameters and values for patch_teams_orga
+    :return:Message Table updated or not
+    """
 
     id_team = body.id_team
     id_enclosure = body.id_enclosure
@@ -215,21 +221,3 @@ def teams_organisation(body: TeamsOrga):
             status_code=404,
             content={"Message": "Table not updated"}
         )
-
-
-# @router.patch("teams_orga_team/{id_team}")
-# def teams_orga_team(id_team: int, body: TeamsOrga):
-#     id_enclosure = body.id_enclosure
-#
-#     res = patch_teams_id_enclosure(id_team, id_enclosure)
-#
-#     if res:
-#         return JSONResponse(
-#             status_code=200,
-#             content={"Message": "Table updated"}
-#         )
-#     else:
-#         return JSONResponse(
-#             status_code=404,
-#             content={"Message": "Table not updated"}
-#         )
