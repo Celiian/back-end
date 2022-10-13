@@ -205,3 +205,43 @@ def delete_breeds(id):
     record = [id]
     res = deleteData(query, record)
     return res
+
+
+
+
+def delete_teams_organisation(id_team, id_enclosure):
+    """
+    Request for teams_organisation()
+
+    :return: LIST The data from the database
+    """
+
+    data = get_dinosaurs()
+    for i in range(0, len(data)):
+        if data[i][1] == id:
+            raise CustomError(
+                status_code=400,
+                content=
+                {
+                    "error": "There are still dinosaurs of this breed alive",
+                }
+            )
+
+    data = get_breeds()
+    if not data:
+        raise CustomError(
+            status_code=400,
+            content=
+            {
+                "error": "This breed does not exist",
+            }
+        )
+
+    query = (f"""       
+            DELETE FROM teams_organisations 
+            WHERE id_team = %s and id_enclosure = %s
+            """)
+
+    record = [id_team, id_enclosure]
+    res = deleteData(query, record)
+    return res

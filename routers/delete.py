@@ -136,7 +136,6 @@ async def dinosaurs(name: str):
         )
 
 
-
 @router.delete("/breeds/{name}",
                status_code=200,
                description="Delete a food supply"
@@ -161,3 +160,32 @@ async def breeds(name: str):
                      }
         )
 
+
+class item(BaseModel):
+    id_team: int
+    id_enclosure: int
+
+
+@router.delete("/teams_organisation/",
+               status_code=200,
+               description="Delete a link between a team and an enclosure"
+               )
+async def teams_organisation(body: item):
+    """
+    Delete a link between a team and an enclosure
+
+    :return: JSON A status code and the data
+    """
+    res = delete_teams_organisation(body.id_team, body.id_enclosure)
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content={"Message": "deleted successfully"}
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "one of the id does not exist",
+                     "Error": res
+                     }
+        )
