@@ -60,3 +60,30 @@ async def teams(id: int):
                      "Error": res
                      }
         )
+
+
+@router.delete("/food_supplies/{food_name}",
+               status_code=200,
+               description="Delete a food supply"
+               )
+async def food_supply(food_name: str):
+    """
+    Delete a food supply
+
+    :return: JSON A status code and the data
+    """
+    res = delete_food_supply(food_name)
+    if res == "True":
+        return JSONResponse(
+            status_code=200,
+            content={"Message": "deleted successfully"}
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this name does not exist",
+                     "Error": res
+                     }
+        )
+
+

@@ -35,11 +35,60 @@ def delete_team(id):
             }
         )
 
+    data = get_team(id)
+    if not data:
+        raise CustomError(
+            status_code=400,
+            content=
+            {
+                "error": "This team does not exist",
+            }
+        )
+
     query = (f"""       
     DELETE teams_organisations, teams FROM teams_organisations
     INNER JOIN teams
     ON teams.id_team = teams_organisations.id_team
     WHERE teams_organisations.id_team= %s;
+            """)
+
+    record = [id]
+    res = deleteData(query, record)
+    return res
+
+
+
+def delete_food_supply(id):
+    """
+    Request for teams()
+
+    :return: LIST The data from the database
+    """
+
+    data = get_breeds()
+    for i in range(0, len(data)):
+        if data[i][2] == id:
+            raise CustomError(
+                status_code=400,
+                content=
+                {
+                    "error": "You can't delete a food supply used by a breed",
+                }
+            )
+
+    data = get_food_supply(id)
+    if not data:
+        raise CustomError(
+            status_code=400,
+            content=
+            {
+                "error": "This food supply does not exist",
+            }
+        )
+
+    query = (f"""       
+            DELETE FROM food_supplies 
+            WHERE food_type = %s
             """)
 
     record = [id]
