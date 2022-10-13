@@ -226,7 +226,6 @@ def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
         query += " id_enclosure = %s"
 
     if get_teams_organisation_team(id_team) and get_teams_organisation_enclosure(id_enclosure):
-
         record.append(id_enclosure)
         query += " WHERE id_enclosure = %s"
         record.append(id_team)
@@ -235,3 +234,21 @@ def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
     return update_data(query, record)
 
 
+def patch_food_supplies(food_type, price):
+    """
+    Edit food supplies price
+
+    :param food_type: STRING REQUIRED type of food
+    :param price: STRING REQUIRED food price (/kg)
+    :return: BOOLEAN Table updated or not
+    """
+    query = "UPDATE food_supplies SET"
+    record = []
+    if price:
+        record.append(price)
+        query += " price = %s"
+    record.append(food_type)
+    query += " WHERE food_type = %s"
+
+    print(query)
+    return update_data(query, record)

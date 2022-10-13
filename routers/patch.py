@@ -166,7 +166,7 @@ def team(id_teams: int, body: Teams):
     Edit some team information
 
     :param id_teams: INT REQUIRED id of a team
-    :param body: CLASS of parameters and values fot patch_teams
+    :param body: CLASS of parameters and values for patch_teams
     :return: Message Table updated or not
     """
     team_type = body.team_type
@@ -210,6 +210,37 @@ def teams_organisation(body: TeamsOrga):
     print(body)
 
     res = patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team)
+
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content={"Message": "Table updated"}
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "Table not updated"}
+        )
+
+
+class FoodSupplies(BaseModel):
+    price: int
+
+
+@router.patch("/food_supplies/{food_type}")
+def food_supplies(food_type: str, body: FoodSupplies):
+    """
+    Edit food type price
+
+    :param food_type: INT REQUIRED food type
+    :param body: CLASS of parameters and values for patch_food_supplies
+    :return: Message Table updated or not
+    """
+    price = body.price
+
+    print(body)
+
+    res = patch_food_supplies(food_type, price)
 
     if res:
         return JSONResponse(
