@@ -1,6 +1,7 @@
 import datetime
 
 from fastapi import APIRouter
+from db.post import postBreed
 from db.post import postDinosaur
 from db.post import postEnclosure
 from db.post import postEmployee
@@ -9,10 +10,43 @@ from pydantic import BaseModel
 
 router = APIRouter()
 
+class ItemBreed(BaseModel):
+    """
+    Formats input values before they are used in the query
+    """
+    breed_name: str
+    food_eaten_daily: int
+    regime_type: str
+    era: str
+    biome_needed: str
+    price: int
+
+
+@router.post("/breed")
+def post_dinosaur(body: ItemBreed):
+    """
+    Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
+
+    :param body: CLASS OBJECT REQUIRED Contains all parameters of the post query
+    :return: JSON REQUIRED The response with a status code and a message
+    """
+    data = (body.breed_name, body.food_eaten_daily, body.regime_type, body.era, body.biome_needed, body.price)
+    res = postBreed(data)
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content="Successful"
+        )
+    else:
+        return JSONResponse(
+            status_code=400,
+            content="Failed"
+        )
+
 
 class ItemDinosaur(BaseModel):
     """
-    Formats input values because they are used in the query
+    Formats input values before they are used in the query
     """
     dinosaur_name: str
     breed_name: str
@@ -47,6 +81,9 @@ def post_dinosaur(body: ItemDinosaur):
 
 
 class ItemEnclosure(BaseModel):
+    """
+    Formats input values before they are used in the query
+    """
     biome: str
     maintenance_cost: str
 
@@ -75,6 +112,9 @@ def post_enclosure(body: ItemEnclosure):
 
 
 class ItemEmployee(BaseModel):
+    """
+    Formats input values before they are used in the query
+    """
     id_team: int
     family_name: str
     surname: str
