@@ -109,3 +109,28 @@ async def employees(id: int):
                      "Error": res
                      }
         )
+
+
+@router.delete("/dinosaurs/{name}",
+               status_code=200,
+               description="Delete a food supply"
+               )
+async def dinosaurs(name: str):
+    """
+    Delete a dinosaur
+
+    :return: JSON A status code and the data
+    """
+    res = delete_dinosaurs(name)
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content={"Message": "deleted successfully"}
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this name does not exist",
+                     "Error": res
+                     }
+        )

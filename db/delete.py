@@ -135,3 +135,32 @@ def delete_employees(id):
     record = [id]
     res = deleteData(query, record)
     return res
+
+
+
+
+def delete_dinosaurs(id):
+    """
+    Request for dinosaurs()
+
+    :return: LIST The data from the database
+    """
+
+    data = get_dinosaur(id)
+    if not data:
+        raise CustomError(
+            status_code=400,
+            content=
+            {
+                "error": "This dinosaur does not exist",
+            }
+        )
+
+    query = (f"""       
+            DELETE FROM dinosaurs 
+            WHERE dinosaur_name = %s
+            """)
+
+    record = [id]
+    res = deleteData(query, record)
+    return res
