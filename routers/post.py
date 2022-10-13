@@ -20,7 +20,6 @@ def post_enclosure(body: ItemEnclosure):
     :param maintenance_cost: STRING REQUIRED The daily cost of maintenance of the enclosure, as a string
     :return: JSON The response with a status code and a message
     """
-    print(body.biome, body.maintenance_cost)
     data = (body.biome, body.maintenance_cost)
     res = postEnclosure(data)
     if res:
