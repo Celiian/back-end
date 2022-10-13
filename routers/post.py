@@ -4,6 +4,7 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
+from db.post import postTeam
 from db.post import postFood
 from db.post import postBreed
 from db.post import postDinosaur
@@ -12,6 +13,36 @@ from db.post import postEmployee
 
 
 router = APIRouter()
+
+
+class ItemTeam(BaseModel):
+    """
+    Formats input values before they are used in the query
+    """
+    team_type: str
+    vehicle_type: str
+
+
+@router.post("/teams")
+def post_team(body: ItemTeam):
+    """
+    Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
+
+    :param body: CLASS OBJECT REQUIRED Contains all parameters of the post query
+    :return: JSON REQUIRED The response with a status code and a message
+    """
+    data = (body.team_type, body.vehicle_type)
+    res = postTeam(data)
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content="Successful"
+        )
+    else:
+        return JSONResponse(
+            status_code=400,
+            content="Failed"
+        )
 
 
 class ItemFood(BaseModel):
@@ -23,7 +54,7 @@ class ItemFood(BaseModel):
 
 
 @router.post("/food_supplies")
-def post_dinosaur(body: ItemFood):
+def post_food(body: ItemFood):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
 
@@ -43,6 +74,7 @@ def post_dinosaur(body: ItemFood):
             content="Failed"
         )
 
+
 class ItemBreed(BaseModel):
     """
     Formats input values before they are used in the query
@@ -56,7 +88,7 @@ class ItemBreed(BaseModel):
 
 
 @router.post("/breed")
-def post_dinosaur(body: ItemBreed):
+def post_breed(body: ItemBreed):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
 
