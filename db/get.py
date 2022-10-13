@@ -306,8 +306,7 @@ def get_dinosaur_breed(name):
     record = [name]
     data = selectData(query, record)
 
-    new_data = formate_date(data)
-    return new_data
+    return data
 
 
 
@@ -324,8 +323,7 @@ def get_breeds():
 
     data = selectData(query)
 
-    new_data = formate_date(data)
-    return new_data
+    return data
 
 
 def get_breed(name):
@@ -341,6 +339,62 @@ def get_breed(name):
                 """)
 
     record = [name]
+    data = selectData(query, record)
+
+    return data
+
+
+
+
+
+def get_teams_organisations():
+    """
+    Request for teams_organisations()
+
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT * FROM teams_organisations
+                """)
+
+    data = selectData(query)
+
+    return data
+
+
+def get_teams_organisation_team(id_team):
+    """
+    Request for teams_organisation_team()
+
+    :param id_team: INT REQUIRED The id of the team
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT * FROM teams_organisations
+              WHERE id_team = %s
+                """)
+
+    record = [id_team]
+    data = selectData(query, record)
+
+    new_data = formate_date(data)
+    return new_data
+
+
+
+def get_teams_organisation_enclosure(id_enclosure):
+    """
+    Request for teams_organisation_team()
+
+    :param id_enclosure: INT REQUIRED The id of the enclosure
+    :return: LIST The data from the database
+    """
+    query = (f"""
+              SELECT * FROM teams_organisations
+              WHERE id_enclosure = %s
+                """)
+
+    record = [id_enclosure]
     data = selectData(query, record)
 
     new_data = formate_date(data)
