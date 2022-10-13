@@ -43,7 +43,6 @@ def deleteData(query, record=None):
     try:
         my_cursor.execute(query, record)
         db.commit()
-        return True
+        return "True"
     except mc.Error as error:
-        print(error)
-        return False
+        return error.msg
