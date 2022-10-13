@@ -1,8 +1,7 @@
-# DROP TABLE teams, enclosures, employees, dinosaurs, breeds, food_supplies, teams_organisations
-
+# DROP TABLE teams, enclosures, employees, dinosaurs, breeds, food_supplies, teams_organisations;
 
 CREATE TABLE teams (
-    id_team INT,
+    id_team INT auto_increment,
     team_type VARCHAR(100),
     vehicle_type VARCHAR(100),
     PRIMARY KEY (id_team)
@@ -11,7 +10,7 @@ CREATE TABLE teams (
 
 CREATE TABLE enclosures
 (
-    id_enclosure     INT,
+    id_enclosure     INT auto_increment,
     biome            VARCHAR(100),
     maintenance_cost VARCHAR(100),
     PRIMARY KEY (id_enclosure)
@@ -42,7 +41,7 @@ CREATE TABLE breeds
 
 CREATE TABLE employees
 (
-    id_employee_member        INT,
+    id_employee_member        INT auto_increment,
     id_team                INT,
     family_name            VARCHAR(100),
     surname                VARCHAR(100),
