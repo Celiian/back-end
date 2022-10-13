@@ -12,7 +12,7 @@ class Item(BaseModel):
     biome: str | None
 
 
-@router.patch("/enclosures/{id}")
+@router.patch("/enclosures/{id_enclosure}")
 async def enclosure(id_enclosure: int, body: Item):
     """
     Modify an enclosure
@@ -125,7 +125,7 @@ class Employee(BaseModel):
     emergency_contact: str | None
 
 
-@router.patch("/employees/{id}")
+@router.patch("/employees/{id_employees}")
 def employees(id_employees: int, body: Employee):
     """
     Edit employees information
@@ -160,7 +160,7 @@ class Teams(BaseModel):
     vehicle_type: str | None
 
 
-@router.patch("/teams/{id}")
+@router.patch("/teams/{id_teams}")
 def team(id_teams: int, body: Teams):
     """
     Edit some team information

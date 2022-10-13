@@ -95,6 +95,8 @@ def patch_dinosaurs(dinosaur_name, id_enclosure, gender, height, weight, id_empl
     record = []
     preceded = False
 
+    print(gender, weight, dinosaur_name)
+
     if gender:
         record.append(gender)
         query += " gender = %s"
@@ -172,7 +174,8 @@ def patch_employees(id_employee, id_team, family_name, phone_number, emergency_c
         record.append(emergency_contact)
         query += " emergency_contact = %s"
     record.append(id_employee)
-    query += "WHERE id_employee_member = %s"
+    query += " WHERE id_employee_member = %s"
+    print(query)
     return update_data(query, record)
 
 
@@ -197,6 +200,7 @@ def patch_teams(id_team, team_type, vehicle_type):
         query += " vehicle_type = %s"
     record.append(id_team)
     query += " WHERE id_team = %s"
+    print(query)
     return update_data(query, record)
 
 
@@ -229,3 +233,5 @@ def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
         query += " AND id_team = %s"
     print(query)
     return update_data(query, record)
+
+
