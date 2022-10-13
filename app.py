@@ -4,12 +4,13 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from routers import get
 from routers import patch
+from routers import put
 
 app = FastAPI()
 
 app.include_router(get.router)
 app.include_router(patch.router)
-
+app.include_router(put.router)
 
 @app.exception_handler(CustomError)
 async def custom_err(request: Request, exc: CustomError):

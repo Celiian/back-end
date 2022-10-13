@@ -7,7 +7,10 @@ from db.put import put_employees
 router = APIRouter()
 
 
-class Item(BaseModel):
+class ItemEmployee(BaseModel):
+    """
+    *insert desc here
+    """
     id_team: int | None
     family_name: str | None
     surname: str | None
@@ -16,17 +19,23 @@ class Item(BaseModel):
     emergency_contact: str | None
 
 
-@router.get("/employees/{id}")
-async def employees(id_employee_member: int, body: Item):
-    id_team = body.id_team
-    family_name = body.family_name
-    surname = body.surname
-    phone_number = body.phone_number
-    social_security_number = body.social_security_number
-    emergency_contact = body.emergency_contact
+@router.put("/employees/{id_employee_member}")
+async def employees(id_employee_member: int, body: ItemEmployee):
+    """
+    *insert desc here
 
-    res = put_employees(id_employee_member, id_team, family_name, surname, phone_number, social_security_number,
-                        emergency_contact)
+    :param id_employee_member: INT REQUIRED Id of the employee whose values are going to be updated
+    :param body: OBJECT REQUIRED Contains all the updated values
+    :return: JSON *insert here
+    """
+
+    res = put_employees(id_employee_member,
+                        body.id_team,
+                        body.family_name,
+                        body.surname,
+                        body.phone_number,
+                        body.social_security_number,
+                        body.emergency_contact)
 
     if res:
         return JSONResponse(

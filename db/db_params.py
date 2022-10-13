@@ -3,7 +3,7 @@ from password import returnPassword
 password = returnPassword()
 
 
-def update_data(query, record):
+def update_data(query):
     db = mc.connect(user='root',
                     password=password,
                     host='127.0.0.1',
@@ -11,7 +11,7 @@ def update_data(query, record):
 
     my_cursor = db.cursor()
     try:
-        my_cursor.execute(query, record)
+        my_cursor.execute(query)
         db.commit()
         return True
     except mc.Error:
