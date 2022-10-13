@@ -4,10 +4,11 @@ from password import returnPassword
 password = returnPassword()
 
 
-def update_data(query):
+def update_data(query, record):
     """
     Connect to the database and perform a query
 
+    :param record:
     :param query: STRING REQUIRED the query to be made
     :return:  BOOLEAN True if the query is done False if there is a problem
     """
@@ -18,7 +19,7 @@ def update_data(query):
 
     my_cursor = db.cursor()
     try:
-        my_cursor.execute(query)
+        my_cursor.execute(query, record)
         db.commit()
         return True
     except mc.Error:
