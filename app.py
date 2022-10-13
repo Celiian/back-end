@@ -3,10 +3,12 @@ from exception_error.custom_exception import CustomError
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from routers import get
+from routers import post
 
 app = FastAPI()
 
 app.include_router(get.router)
+app.include_router(post.router)
 
 
 @app.exception_handler(CustomError)
