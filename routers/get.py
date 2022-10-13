@@ -430,3 +430,75 @@ async def breed(name: str):
             status_code=404,
             content={"Message": "this breed name does not exist"}
         )
+
+
+
+@router.get("/teams_organisation",
+            status_code=200,
+            description="Get all value of the team_organisation table",
+            responses={
+                404: {"model": Message}
+            })
+async def teams_organisations():
+    """
+    Send all value of the team_organisation table
+
+    :return: JSON A status code and the data
+    """
+    data = get_teams_organisations()
+    return JSONResponse(
+        status_code=200,
+        content=data
+    )
+
+
+@router.get("/teams_organisation/team/{id_team}",
+            status_code=200,
+            description="Get one team organisation",
+            responses={
+                404: {"model": Message}
+            })
+async def teams_organisation_team(id_team: int):
+    """
+    Send one team organisation
+
+    :param id_team: INT REQUIRED The id of the team
+    :return: JSON A status code and the data
+    """
+    data = get_teams_organisation_team(id_team)
+    if data:
+        return JSONResponse(
+            status_code=200,
+            content=data
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this team id does not exist"}
+        )
+
+
+@router.get("/teams_organisation/enclosure/{id_enclosure}",
+            status_code=200,
+            description="Get one team organisation",
+            responses={
+                404: {"model": Message}
+            })
+async def team_organisation(id_enclosure: int):
+    """
+    Send one team organisation
+
+    :param id_enclosure: INT REQUIRED The id of the enclosure
+    :return: JSON A status code and the data
+    """
+    data = get_teams_organisation_enclosure(id_enclosure)
+    if data:
+        return JSONResponse(
+            status_code=200,
+            content=data
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this enclosure id does not exist"}
+        )
