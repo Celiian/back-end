@@ -119,7 +119,7 @@ VALUES  (0,1),
 
 
 
-INSERT INTO dinosaurs(dinosaur_name, breed_name, id_enclosure, creation_date, gender, height, weigh, id_employees)
+INSERT INTO dinosaurs(dinosaur_name, breed_name, id_enclosure, creation_date, gender, height, weight, id_employees)
 VALUES  ('Héloïse','Compsognathus',2,'2002-01-06','female',1,3,2),
         ('Léo','Allausore',1,'2003-12-04','male',4,5183,1),
         ('Célian','Tyrannosaure',6,'2002-10-24','male',5,8238,2),
