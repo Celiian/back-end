@@ -36,7 +36,6 @@ async def enclosures(id: int):
         )
 
 
-
 @router.delete("/teams/{id}",
                status_code=200,
                description="Delete a team"
@@ -87,3 +86,26 @@ async def food_supply(food_name: str):
         )
 
 
+@router.delete("/employees/{id}",
+               status_code=200,
+               description="Delete a food supply"
+               )
+async def employees(id: int):
+    """
+    Delete a food supply
+
+    :return: JSON A status code and the data
+    """
+    res = delete_employees(id)
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content={"Message": "deleted successfully"}
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "this id does not exist",
+                     "Error": res
+                     }
+        )

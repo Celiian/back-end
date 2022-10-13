@@ -94,3 +94,33 @@ def delete_food_supply(id):
     record = [id]
     res = deleteData(query, record)
     return res
+
+
+
+
+def delete_employees(id):
+    """
+    Request for employees()
+
+    :return: LIST The data from the database
+    """
+
+
+    data = get_team_employees(id)
+    if not data:
+        raise CustomError(
+            status_code=400,
+            content=
+            {
+                "error": "This employee does not exist",
+            }
+        )
+
+    query = (f"""       
+            DELETE FROM employees 
+            WHERE id_employee_member = %s
+            """)
+
+    record = [id]
+    res = deleteData(query, record)
+    return res
