@@ -78,8 +78,6 @@ def breed(name: str, body: Breed):
         )
 
 
-
-
 class Dino(BaseModel):
     id_enclosure: int | None
     gender: str | None
@@ -120,7 +118,6 @@ def dinosaurs(name: str, body: Dino):
         )
 
 
-
 class Employee(BaseModel):
     id_team: int | None
     family_name: str | None
@@ -158,7 +155,6 @@ def employees(id: int, body: Employee):
         )
 
 
-
 class Teams(BaseModel):
     team_type: str | None
     vehicle_type: str | None
@@ -188,3 +184,52 @@ def team(id: int, body: Teams):
             status_code=404,
             content={"Message": "Table not updated"}
         )
+
+
+class TeamsOrga(BaseModel):
+    id_enclosure: int
+    id_team: int
+    new_id_enclosure: int | None
+    new_id_team: int | None
+
+
+@router.patch("/teams_organisation")
+def teams_organisation(body: TeamsOrga):
+
+    id_team = body.id_team
+    id_enclosure = body.id_enclosure
+    new_id_enclosure = body.new_id_enclosure
+    new_id_team = body.new_id_team
+
+    print(body)
+
+    res = patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team)
+
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content={"Message": "Table updated"}
+        )
+    else:
+        return JSONResponse(
+            status_code=404,
+            content={"Message": "Table not updated"}
+        )
+
+
+# @router.patch("teams_orga_team/{id_team}")
+# def teams_orga_team(id_team: int, body: TeamsOrga):
+#     id_enclosure = body.id_enclosure
+#
+#     res = patch_teams_id_enclosure(id_team, id_enclosure)
+#
+#     if res:
+#         return JSONResponse(
+#             status_code=200,
+#             content={"Message": "Table updated"}
+#         )
+#     else:
+#         return JSONResponse(
+#             status_code=404,
+#             content={"Message": "Table not updated"}
+#         )

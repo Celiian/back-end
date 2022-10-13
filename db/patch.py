@@ -199,3 +199,37 @@ def patch_teams(id, team_type, vehicle_type):
     record.append(id)
     query += " WHERE id_team = %s"
     return update_data(query, record)
+
+
+def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
+
+    query = "UPDATE teams_organisations SET"
+    record = []
+    if get_teams_organisation_team(new_id_team):
+        record.append(new_id_team)
+        query += " id_team = %s"
+
+    if get_teams_organisation_enclosure(new_id_enclosure):
+        record.append(new_id_enclosure)
+        query += " id_enclosure = %s"
+
+    if get_teams_organisation_team(id_team) and get_teams_organisation_enclosure(id_enclosure):
+
+        record.append(id_enclosure)
+        query += " WHERE id_enclosure = %s"
+        record.append(id_team)
+        query += " AND id_team = %s"
+    print(query)
+    return update_data(query, record)
+
+
+
+# def patch_teams_id_enclosure(id_team, id_enclosure):
+#     query = "UPDATE teams_organisations SET"
+#     record = []
+#     if id_team:
+#         record.append(id_team)
+#         query += " id_enclosure = %s"
+#
+#     record.append(id_enclosure)
+#     query += " WHERE id_team = %s"
