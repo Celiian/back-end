@@ -105,6 +105,17 @@ def delete_employees(id):
     :return: LIST The data from the database
     """
 
+    data = get_dinosaurs()
+    for i in range(0, len(data)):
+        if data[i][7] == id:
+            raise CustomError(
+                status_code=400,
+                content=
+                {
+                    "error": "This employee is taking care of a dinosaur you can't fire him",
+                }
+            )
+
 
     data = get_team_employees(id)
     if not data:
