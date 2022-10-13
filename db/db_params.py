@@ -3,7 +3,7 @@ from password import returnPassword
 password = returnPassword()
 
 
-def update_data(query, record):
+def update_data(query):
     db = mc.connect(user='root',
                     password=password,
                     host='127.0.0.1',
@@ -11,7 +11,7 @@ def update_data(query, record):
 
     my_cursor = db.cursor()
     try:
-        my_cursor.execute(query, record)
+        my_cursor.execute(query)
         db.commit()
         return True
     except mc.Error:
@@ -19,7 +19,7 @@ def update_data(query, record):
 
 def selectData(query, record=None):
     """
-    connect to the database and perform a query
+    Connect to the database and perform a query
 
     :param query:STRING REQUIRED the query to be made
     :param record: STRING OPTIONAL
@@ -37,3 +37,21 @@ def selectData(query, record=None):
     for i in my_cursor:
         result.append(i)
     return result
+
+
+def insertData(query, record):
+    password = returnPassword()
+
+    db = mc.connect(user='root',
+                    password=password,
+                    host='127.0.0.1',
+                    database='jurassic')
+
+    my_cursor = db.cursor()
+    try:
+        my_cursor.execute(query, record)
+        db.commit()
+        return True
+    except mc.Error as error:
+        print(error)
+        return False
