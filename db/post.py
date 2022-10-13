@@ -3,6 +3,19 @@ from db.db_params import insertData
 # Connect with the MySQL Server
 
 
+def postTeamOrganisation(data):
+    """
+    Defines the query string, then calls insertData function using data and post_team_org_query as parameter
+
+    :param data: OBJECT Containing all the values to insert in the query
+    :return: BOOL The boolean value that becomes true if post succeeds or false if post fails.
+    """
+    post_team_org_query = "INSERT INTO teams_organisations(id_enclosure, id_team) VALUES (%s,%s)"
+    res = insertData(post_team_org_query, data)
+
+    return res
+
+
 def postTeam(data):
     """
     Defines the query string, then calls insertData function using data and post_breed_query as parameter

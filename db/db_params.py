@@ -34,8 +34,7 @@ def insertData(query, record):
                     database='jurassic')
 
     my_cursor = db.cursor()
-    result = []
-    try :
+    try:
         my_cursor.execute(query, record)
         db.commit()
         return True

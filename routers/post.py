@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from db.post import postTeam
+from db.post import postTeamOrganisation
 from db.post import postFood
 from db.post import postBreed
 from db.post import postDinosaur
@@ -13,6 +14,36 @@ from db.post import postEmployee
 
 
 router = APIRouter()
+
+
+class ItemTeamOrganisation(BaseModel):
+    """
+    Formats input values before they are used in the query
+    """
+    id_enclosure: int
+    id_team: int
+
+
+@router.post("/team_organisation")
+def post_team_organisation(body: ItemTeamOrganisation):
+    """
+    Calls postTeamOrganisation function using url parameters as parameter, then returns whether post fails or succeeds
+
+    :param body: CLASS OBJECT REQUIRED Contains all parameters of the post query
+    :return: JSON REQUIRED The response with a status code and a message
+    """
+    data = (body.id_enclosure, body.id_team)
+    res = postTeamOrganisation(data)
+    if res:
+        return JSONResponse(
+            status_code=200,
+            content="Successful"
+        )
+    else:
+        return JSONResponse(
+            status_code=400,
+            content="Failed"
+        )
 
 
 class ItemTeam(BaseModel):
