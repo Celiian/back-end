@@ -10,21 +10,9 @@ def delete_enclosure(enclosure_id):
     :return: DICT The succes message is the query went well
     """
 
-    data = get_dinosaurs()
-    for i in range(0, len(data)):
-        if data[i][2] == enclosure_id:
-            raise CustomError(
-                status_code=409,
-                content=
-                {
-                    "Error": "You can't delete a enclosure when there are still dinosaurs inside",
-                }
-            )
-
-
     if not get_enclosure(enclosure_id):
         raise CustomError(
-            status_code=409,
+            status_code=400,
             content=
             {
                 "Error": "This id does not exist",
@@ -59,7 +47,7 @@ def delete_team(team_id):
     """
     if get_team_employees(team_id):
         raise CustomError(
-            status_code=409,
+            status_code=400,
             content=
             {
                 "Error": "The team still have employees affected to itself",
@@ -69,7 +57,7 @@ def delete_team(team_id):
     data = get_team(team_id)
     if not data:
         raise CustomError(
-            status_code=409,
+            status_code=400,
             content=
             {
                 "Error": "This team does not exist",
@@ -108,7 +96,7 @@ def delete_food_supply(food_name):
     for i in range(0, len(data)):
         if data[i][2] == food_name:
             raise CustomError(
-                status_code=409,
+                status_code=400,
                 content=
                 {
                     "Error": "You can't delete a food supply used by a breed",
@@ -155,7 +143,7 @@ def delete_employees(employee_id):
     for i in range(0, len(data)):
         if data[i][7] == employee_id:
             raise CustomError(
-                status_code=409,
+                status_code=400,
                 content=
                 {
                     "Error": "This employee is taking care of a dinosaur you can't fire him",
@@ -165,7 +153,7 @@ def delete_employees(employee_id):
     data = get_team_employees(employee_id)
     if not data:
         raise CustomError(
-            status_code=409,
+            status_code=400,
             content=
             {
                 "Error": "This employee does not exist",
@@ -201,7 +189,7 @@ def delete_dinosaurs(dinosaur_name):
     data = get_dinosaur(dinosaur_name)
     if not data:
         raise CustomError(
-            status_code=409,
+            status_code=400,
             content=
             {
                 "Error": "This dinosaur does not exist",
@@ -238,7 +226,7 @@ def delete_breeds(breed_name):
     for i in range(0, len(data)):
         if data[i][1] == breed_name:
             raise CustomError(
-                status_code=409,
+                status_code=400,
                 content=
                 {
                     "Error": "There are still dinosaurs of this breed alive",
@@ -248,7 +236,7 @@ def delete_breeds(breed_name):
     data = get_breeds()
     if not data:
         raise CustomError(
-            status_code=409,
+            status_code=400,
             content=
             {
                 "error": "This breed does not exist",
@@ -287,7 +275,7 @@ def delete_teams_organisation(id_team, id_enclosure):
     for i in range(0, len(data)):
         if data[i][1] == id:
             raise CustomError(
-                status_code=409,
+                status_code=400,
                 content=
                 {
                     "Error": "There are still dinosaurs of this breed alive",
