@@ -46,7 +46,7 @@ CREATE TABLE employees
     family_name            VARCHAR(100),
     surname                VARCHAR(100),
     phone_number            VARCHAR(100),
-    social_security_member   VARCHAR(100),
+    social_security_number  VARCHAR(100),
     emergency_contact      VARCHAR(100),
     PRIMARY KEY (id_employee_member),
     FOREIGN KEY (id_team) REFERENCES teams (id_team)

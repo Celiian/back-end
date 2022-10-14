@@ -4,16 +4,13 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from db.post import postTeam
-from db.post import postTeamOrganisation
-from db.post import postFood
-from db.post import postBreed
-from db.post import postDinosaur
-from db.post import postEnclosure
-from db.post import postEmployee
-
+from db.post import *
 
 router = APIRouter()
+
+
+class Message(BaseModel):
+    message: str
 
 
 class ItemTeamOrganisation(BaseModel):
@@ -24,7 +21,12 @@ class ItemTeamOrganisation(BaseModel):
     id_team: int
 
 
-@router.post("/team_organisation")
+@router.post("/team_organisation",
+            status_code=200,
+            description="Add a team organisation",
+            responses={
+               400: {"model": Message}
+            })
 def post_team_organisation(body: ItemTeamOrganisation):
     """
     Calls postTeamOrganisation function using url parameters as parameter, then returns whether post fails or succeeds
@@ -54,7 +56,12 @@ class ItemTeam(BaseModel):
     vehicle_type: str
 
 
-@router.post("/teams")
+@router.post("/teams",
+            status_code=200,
+            description="Add a team",
+            responses={
+               400: {"model": Message}
+            })
 def post_team(body: ItemTeam):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
@@ -84,7 +91,12 @@ class ItemFood(BaseModel):
     price: int
 
 
-@router.post("/food_supplies")
+@router.post("/food_supplies",
+             status_code=200,
+             description="Add a food type",
+             responses={
+                 400: {"model": Message}
+             })
 def post_food(body: ItemFood):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
@@ -118,7 +130,12 @@ class ItemBreed(BaseModel):
     price: int
 
 
-@router.post("/breed")
+@router.post("/breed",
+             status_code=200,
+             description="Add a breed of dinosaurs",
+             responses={
+                 400: {"model": Message}
+             })
 def post_breed(body: ItemBreed):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
@@ -150,11 +167,16 @@ class ItemDinosaur(BaseModel):
     creation_date: datetime.date
     gender: str
     height: int
-    weigh: int
+    weight: int
     id_employees: int
 
 
-@router.post("/dinosaurs")
+@router.post("/dinosaurs",
+             status_code=200,
+             description="Add a dinosaur",
+             responses={
+                 400: {"model": Message}
+             })
 def post_dinosaur(body: ItemDinosaur):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
@@ -162,7 +184,7 @@ def post_dinosaur(body: ItemDinosaur):
     :param body: CLASS OBJECT REQUIRED Contains all parameters of the post query
     :return: JSON REQUIRED The response with a status code and a message
     """
-    data = (body.dinosaur_name, body.breed_name, body.id_enclosure, body.creation_date, body.gender, body.height, body.weigh, body.id_employees)
+    data = (body.dinosaur_name, body.breed_name, body.id_enclosure, body.creation_date, body.gender, body.height, body.weight, body.id_employees)
     res = postDinosaur(data)
     if res:
         return JSONResponse(
@@ -184,7 +206,12 @@ class ItemEnclosure(BaseModel):
     maintenance_cost: str
 
 
-@router.post("/enclosures")
+@router.post("/enclosures",
+             status_code=200,
+             description="Add an enclosure",
+             responses={
+                 400: {"model": Message}
+             })
 def post_enclosure(body: ItemEnclosure):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
@@ -215,10 +242,15 @@ class ItemEmployee(BaseModel):
     family_name: str
     surname: str
     phone_number: str
-    social_security_member: str
+    social_security_number: str
     emergency_contact: str
 
-@router.post("/employees")
+@router.post("/employees",
+             status_code=200,
+             description="Add an employee",
+             responses={
+                 400: {"model": Message}
+             })
 def post_employee(body: ItemEmployee):
     """
     Calls postEmployee function using url parameters as parameter, then returns whether post fails or succeeds
@@ -227,11 +259,11 @@ def post_employee(body: ItemEmployee):
     :param family_name: STRING  guess..
     :param surname: STRING REQUIRED guess...
     :param phone_number: STRING REQUIRED guess.
-    :param social_security_member: STRING REQUIRED guess....
+    :param social_security_number: STRING REQUIRED guess....
     :param emergency_contact: STRING REQUIRED guess...
     :return: JSON REQUIRED The response with a status code and a message
     """
-    data = (body.id_team, body.family_name, body.surname, body.phone_number, body.social_security_member, body.emergency_contact)
+    data = (body.id_team, body.family_name, body.surname, body.phone_number, body.social_security_number, body.emergency_contact)
     res = postEmployee(data)
     if res:
         return JSONResponse(
