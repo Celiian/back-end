@@ -309,23 +309,63 @@ def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
             }
         )
 
+    data = get_teams_organisations()
 
-    query = "UPDATE teams_organisations SET"
-    record = []
-    if get_teams_organisation_team(new_id_team):
-        record.append(new_id_team)
-        query += " id_team = %s"
+    for line in data:
+        if line[0] == id_enclosure and line[1] == id_team:
 
-    if get_teams_organisation_enclosure(new_id_enclosure):
-        record.append(new_id_enclosure)
-        query += " id_enclosure = %s"
+            query = "UPDATE teams_organisations SET"
+            record = []
+            if get_teams_organisation_team(new_id_team):
+                record.append(new_id_team)
+                query += " id_team = %s"
 
-    if get_teams_organisation_team(id_team) and get_teams_organisation_enclosure(id_enclosure):
-        record.append(id_enclosure)
-        query += " WHERE id_enclosure = %s"
-        record.append(id_team)
-        query += " AND id_team = %s"
-    return update_data(query, record)
+            if get_teams_organisation_enclosure(new_id_enclosure):
+                record.append(new_id_enclosure)
+                query += " id_enclosure = %s"
+
+            if get_teams_organisation_team(id_team) and get_teams_organisation_enclosure(id_enclosure):
+                record.append(id_enclosure)
+                query += " WHERE id_enclosure = %s"
+                record.append(id_team)
+                query += " AND id_team = %s"
+            res = update_data(query, record)
+
+            if res["error"] != "":
+                raise CustomError(
+                    status_code=400,
+                    content={"Message": "Unexpected error",
+                             "Error": res["error"]
+                             }
+                )
+
+            return res
+
+    raise CustomError(
+        status_code=409,
+        content=
+        {
+            "Error": "This pair of id does not exist",
+        }
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def patch_food_supplies(food_type, price):
@@ -346,7 +386,6 @@ def patch_food_supplies(food_type, price):
             }
         )
 
-
     query = "UPDATE food_supplies SET"
     record = []
     if price:
@@ -361,4 +400,10 @@ def patch_food_supplies(food_type, price):
     record.append(food_type)
     query += " WHERE food_type = %s"
 
+
+
+
+
     return update_data(query, record)
+
+
