@@ -1,4 +1,4 @@
-Project Authors
+Project Dinomania Authors
 ===============
 
 The project started on 11/10/2022,<br>
