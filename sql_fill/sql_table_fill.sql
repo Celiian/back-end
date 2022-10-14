@@ -47,7 +47,7 @@ VALUES      ('Intervention','helicopter'),
            ('Cleaning','car');
 
 
-INSERT INTO employees(id_team, family_name, surname, phone_number, social_security_member, emergency_contact )
+INSERT INTO employees(id_team, family_name, surname, phone_number, social_security_number, emergency_contact )
 VALUES      (12 ,'Dupon', 'Héloïse', '0738293819', '0313834719381','0738293819'),
             (12 ,'Dupont', 'Léo', '0738293819', '0313834719381','0738293819'),
             (12 ,'Dupond', 'Célian', '0738293819', '031383471938', '0738293819' ),
