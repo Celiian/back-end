@@ -70,7 +70,8 @@ async def teams(team_id: int):
                responses={
                    400: {"model": Response},
                    409: {"model": Response}
-               }
+               },
+               response_model=Response
                )
 async def food_supply(food_name: str):
     """
@@ -168,7 +169,8 @@ class teams_organisation_ids(BaseModel):
                responses={
                    400: {"model": Response},
                    409: {"model": Response}
-               }
+               },
+               response_model=Response
                )
 async def teams_organisation(body: teams_organisation_ids):
     """

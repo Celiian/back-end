@@ -9,8 +9,9 @@ from db.post import *
 router = APIRouter()
 
 
-class Message(BaseModel):
-    message: str
+class Response(BaseModel):
+    status_code: int
+    content: str
 
 
 class ItemTeamOrganisation(BaseModel):
@@ -25,8 +26,8 @@ class ItemTeamOrganisation(BaseModel):
              status_code=201,
              description="Add a team organisation",
              responses={
-                 400: {"model": Message},
-                 409: {"model": Message}
+                 400: {"model": Response},
+                 409: {"model": Response}
              })
 def team_organisation(body: ItemTeamOrganisation):
     """
@@ -56,8 +57,8 @@ class ItemTeam(BaseModel):
              status_code=201,
              description="Add a team",
              responses={
-                 400: {"model": Message},
-                 409: {"model": Message}
+                 400: {"model": Response},
+                 409: {"model": Response}
              })
 def team(body: ItemTeam):
     """
@@ -87,8 +88,8 @@ class ItemFood(BaseModel):
              status_code=201,
              description="Add a food type",
              responses={
-                 400: {"model": Message},
-                 409: {"model": Message}
+                 400: {"model": Response},
+                 409: {"model": Response}
              })
 def food(body: ItemFood):
     """
@@ -122,8 +123,8 @@ class ItemBreed(BaseModel):
              status_code=201,
              description="Add a breed of dinosaurs",
              responses={
-                 400: {"model": Message},
-                 409: {"model": Message}
+                 400: {"model": Response},
+                 409: {"model": Response}
              })
 def breed(body: ItemBreed):
     """
@@ -159,8 +160,8 @@ class ItemDinosaur(BaseModel):
              status_code=201,
              description="Add a dinosaur",
              responses={
-                 400: {"model": Message},
-                 409: {"model": Message}
+                 400: {"model": Response},
+                 409: {"model": Response}
              })
 def dinosaur(body: ItemDinosaur):
     """
@@ -193,8 +194,8 @@ class ItemEnclosure(BaseModel):
              status_code=201,
              description="Add an enclosure",
              responses={
-                 400: {"model": Message},
-                 409: {"model": Message}
+                 400: {"model": Response},
+                 409: {"model": Response}
              })
 def enclosure(body: ItemEnclosure):
     """
@@ -230,8 +231,8 @@ class ItemEmployee(BaseModel):
              status_code=201,
              description="Add an employee",
              responses={
-                 400: {"model": Message},
-                 409: {"model": Message}
+                 400: {"model": Response},
+                 409: {"model": Response}
              })
 def employee(body: ItemEmployee):
     """
