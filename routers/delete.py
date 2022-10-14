@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
+
 from pydantic import BaseModel
 
 from db.delete import *
@@ -11,16 +12,20 @@ class Item(BaseModel):
     id: int
 
 
-class Message(BaseModel):
-    message: str
+class Response(BaseModel):
+    status_code: int
+    content: str
 
 
-@router.delete("/enclosures/{id}",
+@router.delete("/enclosures/{enclosure_id}",
                status_code=200,
                description="Delete an enclosure",
                responses={
-                   400: {"model": Message}
-               })
+                   400: {"model": Response},
+                   409: {"model": Response}
+               },
+               response_model=Response
+               )
 async def enclosures(enclosure_id: int):
     """
     Send all enclosures
@@ -32,7 +37,7 @@ async def enclosures(enclosure_id: int):
 
     return JSONResponse(
         status_code=200,
-        content={"Message": res["message"]}
+        content=res["message"]
     )
 
 
@@ -40,8 +45,11 @@ async def enclosures(enclosure_id: int):
                status_code=200,
                description="Delete a team",
                responses={
-                   400: {"model": Message}
-               })
+                   400: {"model": Response},
+                   409: {"model": Response}
+               },
+               response_model=Response
+               )
 async def teams(team_id: int):
     """
     Send all enclosures
@@ -50,9 +58,10 @@ async def teams(team_id: int):
     :return: JSON A status code and a message
     """
     res = delete_team(team_id)
+
     return JSONResponse(
         status_code=200,
-        content={"Message": res["message"]}
+        content=res["message"]
     )
 
 
@@ -60,7 +69,8 @@ async def teams(team_id: int):
                status_code=200,
                description="Delete a food supply",
                responses={
-                   400: {"model": Message}
+                   400: {"model": Response},
+                   409: {"model": Response}
                }
                )
 async def food_supply(food_name: str):
@@ -71,9 +81,10 @@ async def food_supply(food_name: str):
     :return: JSON A status code and a message
     """
     res = delete_food_supply(food_name)
+
     return JSONResponse(
         status_code=200,
-        content={"Message": res["message"]}
+        content=res["message"]
     )
 
 
@@ -81,8 +92,10 @@ async def food_supply(food_name: str):
                status_code=200,
                description="Delete a food supply",
                responses={
-                   400: {"model": Message}
-               }
+                   400: {"model": Response},
+                   409: {"model": Response}
+               },
+               response_model=Response
                )
 async def employees(employee_id: int):
     """
@@ -92,9 +105,10 @@ async def employees(employee_id: int):
     :return: JSON A status code and a message
     """
     res = delete_employees(employee_id)
+
     return JSONResponse(
         status_code=200,
-        content={"Message": res["message"]}
+        content=res["message"]
     )
 
 
@@ -102,8 +116,10 @@ async def employees(employee_id: int):
                status_code=200,
                description="Delete a food supply",
                responses={
-                   400: {"model": Message}
-               }
+                   400: {"model": Response},
+                   409: {"model": Response}
+               },
+               response_model=Response
                )
 async def dinosaurs(dinosaur_name: str):
     """
@@ -115,7 +131,7 @@ async def dinosaurs(dinosaur_name: str):
     res = delete_dinosaurs(dinosaur_name)
     return JSONResponse(
         status_code=200,
-        content={"Message": res["message"]}
+        content=res["message"]
     )
 
 
@@ -123,8 +139,10 @@ async def dinosaurs(dinosaur_name: str):
                status_code=200,
                description="Delete a food supply",
                responses={
-                   400: {"model": Message}
-               }
+                   400: {"model": Response},
+                   409: {"model": Response}
+               },
+               response_model=Response
                )
 async def breeds(breed_name: str):
     """
@@ -136,7 +154,7 @@ async def breeds(breed_name: str):
     res = delete_breeds(breed_name)
     return JSONResponse(
         status_code=200,
-        content={"Message": res["message"]}
+        content=res["message"]
     )
 
 
@@ -149,7 +167,8 @@ class teams_organisation_ids(BaseModel):
                status_code=200,
                description="Delete a link between a team and an enclosure",
                responses={
-                   400: {"model": Message}
+                   400: {"model": Response},
+                   409: {"model": Response}
                }
                )
 async def teams_organisation(body: teams_organisation_ids):
@@ -161,6 +180,5 @@ async def teams_organisation(body: teams_organisation_ids):
     res = delete_teams_organisation(body.id_team, body.id_enclosure)
     return JSONResponse(
         status_code=200,
-        content={"Message": res["message"]}
+        content=res["message"]
     )
-

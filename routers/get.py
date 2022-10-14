@@ -2,15 +2,18 @@ from fastapi import APIRouter
 from db.get import *
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+
 router = APIRouter()
 
 
-class Message(BaseModel):
-    message: str
+class Response(BaseModel):
+    status_code: int
+    content: str
 
 
 @router.get("/enclosures", status_code=200,
-            description="Get all existing enclosures"
+            description="Get all existing enclosures",
+            response_model=Response
             )
 async def enclosures():
     """
@@ -29,8 +32,10 @@ async def enclosures():
             status_code=200,
             description="Get the information of a specific enclosure",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response
+            )
 async def enclosure(id: int):
     """
     Send a specific enclosure
@@ -46,7 +51,7 @@ async def enclosure(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this id does not exist"}
         )
 
@@ -55,8 +60,9 @@ async def enclosure(id: int):
             status_code=200,
             description="Get all the dinosaurs living in a specific enclosure",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def enclosure_dinosaurs(id: int):
     """
     Send all dinosaurs living in an enclosure
@@ -72,7 +78,7 @@ async def enclosure_dinosaurs(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this id does not exist"}
         )
 
@@ -81,8 +87,9 @@ async def enclosure_dinosaurs(id: int):
             status_code=200,
             description="Get all the teams working on a specific enclosure",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def enclosure_teams(id: int):
     """
     Send all teams working in an enclosure
@@ -98,7 +105,7 @@ async def enclosure_teams(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this id does not exist"}
         )
 
@@ -107,8 +114,9 @@ async def enclosure_teams(id: int):
             status_code=200,
             description="Get all the employees working on a specific enclosure",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def enclosure_teams_employees(id: int):
     """
     Send all employees working in an enclosure
@@ -124,7 +132,7 @@ async def enclosure_teams_employees(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this id does not exist"}
         )
 
@@ -133,8 +141,9 @@ async def enclosure_teams_employees(id: int):
             status_code=200,
             description="Get all the teams",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def teams():
     """
     Send all teams
@@ -152,8 +161,9 @@ async def teams():
             status_code=200,
             description="Get a specific team",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def team(id: int):
     """
     Send a specific team
@@ -169,7 +179,7 @@ async def team(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this id does not exist"}
         )
 
@@ -178,8 +188,9 @@ async def team(id: int):
             status_code=200,
             description="Get all employees of a team",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def team_employees(id: int):
     """
     Send all employees of a team
@@ -195,7 +206,7 @@ async def team_employees(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this id does not exist"}
         )
 
@@ -204,8 +215,9 @@ async def team_employees(id: int):
             status_code=200,
             description="Get all enclosures managed by a team",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def team_enclosures(id: int):
     """
     Send all enclosures managed by a team
@@ -221,16 +233,18 @@ async def team_enclosures(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this id does not exist"}
         )
+
 
 @router.get("/employees",
             status_code=200,
             description="Get all emploeyees",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def employees():
     """
     Send all employees
@@ -248,8 +262,9 @@ async def employees():
             status_code=200,
             description="Get an employee",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def employee(id: int):
     """
     Send one specified employee
@@ -265,7 +280,7 @@ async def employee(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this id does not exist"}
         )
 
@@ -274,8 +289,9 @@ async def employee(id: int):
             status_code=200,
             description="Get all food supplies",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def food_supplies():
     """
     Send all food supplies
@@ -293,8 +309,9 @@ async def food_supplies():
             status_code=200,
             description="Get one food supply",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def food_supply(food_type: str):
     """
     Send one specified employee
@@ -310,7 +327,7 @@ async def food_supply(food_type: str):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this food does not exist"}
         )
 
@@ -319,8 +336,10 @@ async def food_supply(food_type: str):
             status_code=200,
             description="Get all dinosaurs",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response
+            )
 async def dinosaurs():
     """
     Send all dinosaurs
@@ -338,8 +357,10 @@ async def dinosaurs():
             status_code=200,
             description="Get one dinosaur",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response
+            )
 async def dinosaur(name: str):
     """
     Send one dinosaur
@@ -355,7 +376,7 @@ async def dinosaur(name: str):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this name does not exist"}
         )
 
@@ -364,8 +385,10 @@ async def dinosaur(name: str):
             status_code=200,
             description="Get one dinosaur's breed",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response
+            )
 async def dinosaur_breed(name: str):
     """
     Send one dinosaur
@@ -381,18 +404,18 @@ async def dinosaur_breed(name: str):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this name does not exist"}
         )
-
 
 
 @router.get("/breeds",
             status_code=200,
             description="Get all breeds",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def breeds():
     """
     Send all breeds
@@ -410,8 +433,9 @@ async def breeds():
             status_code=200,
             description="Get one dinosaur's breed",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def breed(name: str):
     """
     Send one breed
@@ -427,18 +451,18 @@ async def breed(name: str):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this breed name does not exist"}
         )
-
 
 
 @router.get("/teams_organisation",
             status_code=200,
             description="Get all value of the team_organisation table",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def teams_organisations():
     """
     Send all value of the team_organisation table
@@ -456,8 +480,9 @@ async def teams_organisations():
             status_code=200,
             description="Get one team organisation",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def teams_organisation_team(id_team: int):
     """
     Send one team organisation
@@ -473,7 +498,7 @@ async def teams_organisation_team(id_team: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this team id does not exist"}
         )
 
@@ -482,8 +507,9 @@ async def teams_organisation_team(id_team: int):
             status_code=200,
             description="Get one team organisation",
             responses={
-                404: {"model": Message}
-            })
+                409: {"model": Response}
+            },
+            response_model=Response)
 async def team_organisation(id_enclosure: int):
     """
     Send one team organisation
@@ -499,6 +525,6 @@ async def team_organisation(id_enclosure: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=409,
             content={"Message": "this enclosure id does not exist"}
         )

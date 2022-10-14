@@ -200,8 +200,9 @@ def enclosure(body: ItemEnclosure):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
 
-    :param biome: STRING REQUIRED The biome string of the enclosure, in the existing biomes
-    :param maintenance_cost: STRING REQUIRED The daily cost of maintenance of the enclosure, as a string
+    :param body: params inside body
+        biome: STRING REQUIRED The biome string of the enclosure, in the existing biomes
+        maintenance_cost: STRING REQUIRED The daily cost of maintenance of the enclosure, as a string
     :return: JSON The response with a status code and a message
     """
     data = (body.biome, body.maintenance_cost)
@@ -236,12 +237,13 @@ def employee(body: ItemEmployee):
     """
     Calls postEmployee function using url parameters as parameter, then returns whether post fails or succeeds
 
-    :param id_team: INT REQUIRED of the team the employee is attributed to
-    :param family_name: STRING  guess..
-    :param surname: STRING REQUIRED guess...
-    :param phone_number: STRING REQUIRED guess.
-    :param social_security_number: STRING REQUIRED guess....
-    :param emergency_contact: STRING REQUIRED guess...
+    :param body: params inside the body :
+        id_team: INT REQUIRED of the team the employee is attributed to
+        family_name: STRING  guess..
+        surname: STRING REQUIRED guess...
+        phone_number: STRING REQUIRED guess.
+        social_security_number: STRING REQUIRED guess....
+        emergency_contact: STRING REQUIRED guess...
     :return: JSON REQUIRED The response with a status code and a message
     """
     data = (body.id_team, body.family_name, body.surname, body.phone_number, body.social_security_number,
