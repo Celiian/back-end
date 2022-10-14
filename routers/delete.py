@@ -25,7 +25,8 @@ async def enclosures(id: int):
     """
     Send all enclosures
 
-    :return: JSON A status code and the data
+    :param id: INT REQUIRED Id of the enclosure
+    :return: JSON A status code and a message
     """
     res = delete_enclosure(id)
 
@@ -45,7 +46,8 @@ async def teams(id: int):
     """
     Send all enclosures
 
-    :return: JSON A status code and the data
+    :param id: INT REQUIRED Id of the team
+    :return: JSON A status code and a message
     """
     res = delete_team(id)
     return JSONResponse(
@@ -65,7 +67,8 @@ async def food_supply(food_name: str):
     """
     Delete a food supply
 
-    :return: JSON A status code and the data
+    :param food_name: STR REQUIRED Name of the food supply
+    :return: JSON A status code and a message
     """
     res = delete_food_supply(food_name)
     return JSONResponse(
@@ -85,7 +88,8 @@ async def employees(id: int):
     """
     Delete a food supply
 
-    :return: JSON A status code and the data
+    :param id: INT REQUIRED Id of the employee
+    :return: JSON A status code and a message
     """
     res = delete_employees(id)
     return JSONResponse(
@@ -105,7 +109,8 @@ async def dinosaurs(name: str):
     """
     Delete a dinosaur
 
-    :return: JSON A status code and the data
+    :param name: STR REQUIRED Name of the dinosaur
+    :return: JSON A status code and a message
     """
     res = delete_dinosaurs(name)
     return JSONResponse(
@@ -125,7 +130,8 @@ async def breeds(name: str):
     """
     Delete a breeds
 
-    :return: JSON A status code and the data
+    :param name: STR REQUIRED Name of the breed
+    :return: JSON A status code and a message
     """
     res = delete_breeds(name)
     return JSONResponse(
@@ -149,8 +155,8 @@ class item(BaseModel):
 async def teams_organisation(body: item):
     """
     Delete a link between a team and an enclosure
-
-    :return: JSON A status code and the data
+    :param body: OBJECT (class) REQUIRED Contain Id of the enclosure and Id of the team
+    :return: JSON A status code and a message
     """
     res = delete_teams_organisation(body.id_team, body.id_enclosure)
     return JSONResponse(
