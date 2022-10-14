@@ -17,7 +17,7 @@ def delete_enclosure(enclosure_id):
             raise CustomError(
                 status_code=400,
                 content=
-                {
+                 {
                     "Error": "You can't delete a enclosure where dinosaurs still live",
                 }
             )
