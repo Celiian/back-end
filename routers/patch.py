@@ -7,8 +7,9 @@ from db.patch import *
 router = APIRouter()
 
 
-class Message(BaseModel):
-    message: str
+class Response(BaseModel):
+    status_code: int
+    content: str
 
 
 class Item(BaseModel):
@@ -20,8 +21,11 @@ class Item(BaseModel):
               status_code=200,
               description="Edit an enclosure",
               responses={
-                  400: {"model": Message}
-              })
+                  400: {"model": Response},
+                  409: {"model": Response}
+              },
+              response_model=Response
+              )
 async def enclosure(id_enclosure: int, body: Item):
     """
     Modify an enclosure
@@ -59,8 +63,11 @@ class Breed(BaseModel):
               status_code=200,
               description="Edit an breed",
               responses={
-                  400: {"model": Message}
-              })
+                  400: {"model": Response},
+                  409: {"model": Response}
+              },
+              response_model=Response
+              )
 def breed(name: str, body: Breed):
     """
     Edit breed
@@ -101,8 +108,11 @@ class Dino(BaseModel):
               status_code=200,
               description="Edit an dinosaur",
               responses={
-                  400: {"model": Message}
-              })
+                  400: {"model": Response},
+                  409: {"model": Response}
+              },
+              response_model=Response
+              )
 def dinosaurs(name: str, body: Dino):
     """
     Edit dinosaur information
@@ -142,8 +152,11 @@ class Employee(BaseModel):
               status_code=200,
               description="Edit an employee",
               responses={
-                  400: {"model": Message}
-              })
+                  400: {"model": Response},
+                  409: {"model": Response}
+              },
+              response_model=Response
+              )
 def employees(id_employees: int, body: Employee):
     """
     Edit employees information
@@ -180,8 +193,11 @@ class Teams(BaseModel):
               status_code=200,
               description="Edit a team",
               responses={
-                  400: {"model": Message}
-              })
+                  400: {"model": Response},
+                  409: {"model": Response}
+              },
+              response_model=Response
+              )
 def team(id_teams: int, body: Teams):
     """
     Edit some team information
@@ -218,8 +234,11 @@ class TeamsOrga(BaseModel):
               status_code=200,
               description="Edit a team organisation (link between teams and enclosures)",
               responses={
-                  400: {"model": Message}
-              })
+                  400: {"model": Response},
+                  409: {"model": Response}
+              },
+              response_model=Response
+              )
 def teams_organisation(body: TeamsOrga):
     """
     Edit the link between team and enclosure
@@ -255,8 +274,11 @@ class FoodSupplies(BaseModel):
               status_code=200,
               description="Edit a food supplies price",
               responses={
-                  400: {"model": Message}
-              })
+                  400: {"model": Response},
+                  409: {"model": Response}
+              },
+              response_model=Response
+              )
 def food_supplies(food_type: str, body: FoodSupplies):
     """
     Edit food type price
