@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-
 from pydantic import BaseModel
 
 from db.delete import *
