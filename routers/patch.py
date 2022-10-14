@@ -23,7 +23,6 @@ async def enclosure(id_enclosure: int, body: Item):
     """
     cost = body.cost
     biome = body.biome
-    print(body)
 
     res = patch_enclosures(id_enclosure, cost, biome)
 
@@ -62,7 +61,6 @@ def breed(name: str, body: Breed):
     biome_needed = body.biome_needed
     price = body.price
 
-    print(body)
 
     res = patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price)
 
@@ -101,9 +99,6 @@ def dinosaurs(name: str, body: Dino):
     weight = body.weight
     id_employees = body.id_employees
 
-    print(name)
-    print(body)
-
     res = patch_dinosaurs(name, id_enclosure, gender, height, weight, id_employees)
 
     if res:
@@ -139,7 +134,6 @@ def employees(id_employees: int, body: Employee):
     phone_number = body.phone_number
     emergency_contact = body.emergency_contact
 
-    print(body)
 
     res = patch_employees(id_employees, id_team, family_name, phone_number, emergency_contact)
 
@@ -207,7 +201,6 @@ def teams_organisation(body: TeamsOrga):
     new_id_enclosure = body.new_id_enclosure
     new_id_team = body.new_id_team
 
-    print(body)
 
     res = patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team)
 

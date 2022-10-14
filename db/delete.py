@@ -1,47 +1,66 @@
-from db.db_params import *
 from db.get import *
 from exception_error.custom_exception import CustomError
 
 
-def delete_enclosure(id):
+def delete_enclosure(enclosure_id):
     """
     Request for enclosures()
 
-    :return: LIST The data from the database
+    :param enclosure_id: INT REQUIRED Id of the enclosure
+    :return: DICT The succes message is the query went well
     """
+
+    if not get_enclosure(enclosure_id):
+        raise CustomError(
+            status_code=400,
+            content=
+            {
+                "Error": "This id does not exist",
+            }
+        )
     query = (f"""
             DELETE FROM enclosures
             WHERE id_enclosure = %s
          """)
 
-    record = [id]
+    record = [enclosure_id]
 
-    res = deleteData(query, record)
+    res = delete_data(query, record)
+    
+    if res["error"] != "":
+        raise CustomError(
+            status_code=400,
+            content={"Message": "Unexpected error",
+                     "Error": res["error"]
+                     }
+        )
+
     return res
 
 
-def delete_team(id):
+def delete_team(team_id):
     """
     Request for teams()
 
-    :return: LIST The data from the database
+    :param team_id: INT REQUIRED Id of the team
+    :return: DICT The succes message is the query went well
     """
-    if get_team_employees(id):
+    if get_team_employees(team_id):
         raise CustomError(
             status_code=400,
             content=
             {
-                "error": "The team still have employees affected to itself",
+                "Error": "The team still have employees affected to itself",
             }
         )
 
-    data = get_team(id)
+    data = get_team(team_id)
     if not data:
         raise CustomError(
             status_code=400,
             content=
             {
-                "error": "This team does not exist",
+                "Error": "This team does not exist",
             }
         )
 
@@ -52,37 +71,45 @@ def delete_team(id):
     WHERE teams_organisations.id_team= %s;
             """)
 
-    record = [id]
-    res = deleteData(query, record)
+    record = [team_id]
+    res = delete_data(query, record)
+
+    if res["error"] != "":
+        raise CustomError(
+            status_code=400,
+            content={"Message": "Unexpected error",
+                     "Error": res["error"]
+                     }
+        )
     return res
 
 
-
-def delete_food_supply(id):
+def delete_food_supply(food_name):
     """
     Request for teams()
 
-    :return: LIST The data from the database
+    :param food_name: STR REQUIRED Name of the food
+    :return: DICT The succes message is the query went well
     """
 
     data = get_breeds()
     for i in range(0, len(data)):
-        if data[i][2] == id:
+        if data[i][2] == food_name:
             raise CustomError(
                 status_code=400,
                 content=
                 {
-                    "error": "You can't delete a food supply used by a breed",
+                    "Error": "You can't delete a food supply used by a breed",
                 }
             )
 
-    data = get_food_supply(id)
+    data = get_food_supply(food_name)
     if not data:
         raise CustomError(
             status_code=400,
             content=
             {
-                "error": "This food supply does not exist",
+                "Error": "This food supply does not exist",
             }
         )
 
@@ -91,39 +118,45 @@ def delete_food_supply(id):
             WHERE food_type = %s
             """)
 
-    record = [id]
-    res = deleteData(query, record)
+    record = [food_name]
+    res = delete_data(query, record)
+    
+    if res["error"] != "":
+        raise CustomError(
+            status_code=400,
+            content={"Message": "Unexpected error",
+                     "Error": res["error"]
+                     }
+        )
     return res
 
 
-
-
-def delete_employees(id):
+def delete_employees(employee_id):
     """
     Request for employees()
 
-    :return: LIST The data from the database
+    :param employee_id: INT REQUIRED Id of the employee
+    :return: DICT The succes message is the query went well
     """
 
     data = get_dinosaurs()
     for i in range(0, len(data)):
-        if data[i][7] == id:
+        if data[i][7] == employee_id:
             raise CustomError(
                 status_code=400,
                 content=
                 {
-                    "error": "This employee is taking care of a dinosaur you can't fire him",
+                    "Error": "This employee is taking care of a dinosaur you can't fire him",
                 }
             )
 
-
-    data = get_team_employees(id)
+    data = get_team_employees(employee_id)
     if not data:
         raise CustomError(
             status_code=400,
             content=
             {
-                "error": "This employee does not exist",
+                "Error": "This employee does not exist",
             }
         )
 
@@ -132,27 +165,34 @@ def delete_employees(id):
             WHERE id_employee_member = %s
             """)
 
-    record = [id]
-    res = deleteData(query, record)
+    record = [employee_id]
+    res = delete_data(query, record)
+    
+    if res["error"] != "":
+        raise CustomError(
+            status_code=400,
+            content={"Message": "Unexpected error",
+                     "Error": res["error"]
+                     }
+        )
     return res
 
 
-
-
-def delete_dinosaurs(id):
+def delete_dinosaurs(dinosaur_name):
     """
     Request for dinosaurs()
 
-    :return: LIST The data from the database
+    :param dinosaur_name: STR REQUIRED Name of the dinosaur
+    :return: DICT The succes message is the query went well
     """
 
-    data = get_dinosaur(id)
+    data = get_dinosaur(dinosaur_name)
     if not data:
         raise CustomError(
             status_code=400,
             content=
             {
-                "error": "This dinosaur does not exist",
+                "Error": "This dinosaur does not exist",
             }
         )
 
@@ -161,29 +201,35 @@ def delete_dinosaurs(id):
             WHERE dinosaur_name = %s
             """)
 
-    record = [id]
-    res = deleteData(query, record)
+    record = [dinosaur_name]
+    res = delete_data(query, record)
+    
+    if res["error"] != "":
+        raise CustomError(
+            status_code=400,
+            content={"Message": "Unexpected error",
+                     "Error": res["error"]
+                     }
+        )
     return res
 
 
-
-
-
-def delete_breeds(id):
+def delete_breeds(breed_name):
     """
     Request for breeds()
 
-    :return: LIST The data from the database
+    :param breed_name: STR REQUIRED Name of the breed
+    :return: DICT The succes message is the query went well
     """
 
     data = get_dinosaurs()
     for i in range(0, len(data)):
-        if data[i][1] == id:
+        if data[i][1] == breed_name:
             raise CustomError(
                 status_code=400,
                 content=
                 {
-                    "error": "There are still dinosaurs of this breed alive",
+                    "Error": "There are still dinosaurs of this breed alive",
                 }
             )
 
@@ -202,18 +248,27 @@ def delete_breeds(id):
             WHERE breed_name = %s
             """)
 
-    record = [id]
-    res = deleteData(query, record)
+    record = [breed_name]
+    res = delete_data(query, record)
+    
+    if res["error"] != "":
+        raise CustomError(
+            status_code=400,
+            content={"Message": "Unexpected error",
+                     "Error": res["error"]
+                     }
+        )
+    
     return res
-
-
 
 
 def delete_teams_organisation(id_team, id_enclosure):
     """
     Request for teams_organisation()
 
-    :return: LIST The data from the database
+    :param id_team: INT REQUIRED id of the enclosure
+    :param id_enclosure: INT REQUIRED id of the team
+    :return: DICT The succes message is the query went well
     """
 
     data = get_dinosaurs()
@@ -223,7 +278,7 @@ def delete_teams_organisation(id_team, id_enclosure):
                 status_code=400,
                 content=
                 {
-                    "error": "There are still dinosaurs of this breed alive",
+                    "Error": "There are still dinosaurs of this breed alive",
                 }
             )
 
@@ -233,7 +288,7 @@ def delete_teams_organisation(id_team, id_enclosure):
             status_code=400,
             content=
             {
-                "error": "This breed does not exist",
+                "Error": "This breed does not exist",
             }
         )
 
@@ -243,5 +298,14 @@ def delete_teams_organisation(id_team, id_enclosure):
             """)
 
     record = [id_team, id_enclosure]
-    res = deleteData(query, record)
+    res = delete_data(query, record)
+    
+    if res["error"] != "":
+        raise CustomError(
+            status_code=400,
+            content={"Message": "Unexpected error",
+                     "Error": res["error"]
+                     }
+        )
+    
     return res

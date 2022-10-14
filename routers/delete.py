@@ -11,10 +11,16 @@ class Item(BaseModel):
     id: int
 
 
+class Message(BaseModel):
+    message: str
+
+
 @router.delete("/enclosures/{id}",
                status_code=200,
-               description="Delete an enclosure"
-               )
+               description="Delete an enclosure",
+               responses={
+                   400: {"model": Message}
+               })
 async def enclosures(id: int):
     """
     Send all enclosures
@@ -22,24 +28,19 @@ async def enclosures(id: int):
     :return: JSON A status code and the data
     """
     res = delete_enclosure(id)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "deleted successfully"}
-        )
-    else:
-        return JSONResponse(
-            status_code=404,
-            content={"Message": "this id does not exist",
-                     "Error": res
-                     }
-        )
+
+    return JSONResponse(
+        status_code=200,
+        content={"Message": res["message"]}
+    )
 
 
 @router.delete("/teams/{id}",
                status_code=200,
-               description="Delete a team"
-               )
+               description="Delete a team",
+               responses={
+                   400: {"model": Message}
+               })
 async def teams(id: int):
     """
     Send all enclosures
@@ -47,23 +48,18 @@ async def teams(id: int):
     :return: JSON A status code and the data
     """
     res = delete_team(id)
-    if res == "True":
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "deleted successfully"}
-        )
-    else:
-        return JSONResponse(
-            status_code=404,
-            content={"Message": "this id does not exist",
-                     "Error": res
-                     }
-        )
+    return JSONResponse(
+        status_code=200,
+        content={"Message": res["message"]}
+    )
 
 
 @router.delete("/food_supplies/{food_name}",
                status_code=200,
-               description="Delete a food supply"
+               description="Delete a food supply",
+               responses={
+                   400: {"model": Message}
+               }
                )
 async def food_supply(food_name: str):
     """
@@ -79,7 +75,7 @@ async def food_supply(food_name: str):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=400,
             content={"Message": "this name does not exist",
                      "Error": res
                      }
@@ -88,7 +84,10 @@ async def food_supply(food_name: str):
 
 @router.delete("/employees/{id}",
                status_code=200,
-               description="Delete a food supply"
+               description="Delete a food supply",
+               responses={
+                   400: {"model": Message}
+               }
                )
 async def employees(id: int):
     """
@@ -104,7 +103,7 @@ async def employees(id: int):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=400,
             content={"Message": "this id does not exist",
                      "Error": res
                      }
@@ -113,7 +112,10 @@ async def employees(id: int):
 
 @router.delete("/dinosaurs/{name}",
                status_code=200,
-               description="Delete a food supply"
+               description="Delete a food supply",
+               responses={
+                   400: {"model": Message}
+               }
                )
 async def dinosaurs(name: str):
     """
@@ -129,7 +131,7 @@ async def dinosaurs(name: str):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=400,
             content={"Message": "this name does not exist",
                      "Error": res
                      }
@@ -138,7 +140,10 @@ async def dinosaurs(name: str):
 
 @router.delete("/breeds/{name}",
                status_code=200,
-               description="Delete a food supply"
+               description="Delete a food supply",
+               responses={
+                   400: {"model": Message}
+               }
                )
 async def breeds(name: str):
     """
@@ -154,7 +159,7 @@ async def breeds(name: str):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=400,
             content={"Message": "this name does not exist",
                      "Error": res
                      }
@@ -168,7 +173,10 @@ class item(BaseModel):
 
 @router.delete("/teams_organisation/",
                status_code=200,
-               description="Delete a link between a team and an enclosure"
+               description="Delete a link between a team and an enclosure",
+               responses={
+                   400: {"model": Message}
+               }
                )
 async def teams_organisation(body: item):
     """
@@ -184,7 +192,7 @@ async def teams_organisation(body: item):
         )
     else:
         return JSONResponse(
-            status_code=404,
+            status_code=400,
             content={"Message": "one of the id does not exist",
                      "Error": res
                      }

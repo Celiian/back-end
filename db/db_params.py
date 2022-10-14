@@ -25,7 +25,7 @@ def update_data(query):
         return False
 
 
-def selectData(query, record=None):
+def select_data(query, record=None):
     """
     Connect to the database and perform a query
 
@@ -47,7 +47,7 @@ def selectData(query, record=None):
     return result
 
 
-def insertData(query, record):
+def insert_data(query, record):
     """
           connect to the database and perform a query
 
@@ -70,7 +70,7 @@ def insertData(query, record):
         return False
 
 
-def deleteData(query, record=None):
+def delete_data(query, record=None):
     """
     connect to the database and perform a query
 
@@ -85,10 +85,16 @@ def deleteData(query, record=None):
                     database='jurassic')
 
     my_cursor = db.cursor()
+    res = {
+        "message": "",
+        "error": ""
+    }
     try:
         my_cursor.execute(query, record)
         db.commit()
-        return True
+        res["message"] = "Deleted successfully"
+        return res
     except mc.Error as error:
-        print(error)
-        return False
+        res["message"] = "Error"
+        res["error"] = error.msg
+        return res

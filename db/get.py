@@ -35,7 +35,7 @@ def get_enclosures():
        SELECT * FROM enclosures
          """)
 
-    data = selectData(query)
+    data = select_data(query)
 
     return data
 
@@ -53,7 +53,7 @@ def get_enclosure(id):
             """)
     record = [id]
 
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -70,7 +70,7 @@ def get_enclosure_dinosaurs(id):
           WHERE id_enclosure = %s
             """)
     record = [id]
-    data = selectData(query, record)
+    data = select_data(query, record)
     new_data = formate_date(data)
 
     return new_data
@@ -92,7 +92,7 @@ def get_enclosure_teams(id):
             """)
     record = [id]
 
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -112,7 +112,7 @@ def get_enclosure_teams_employees(id):
             """)
     record = [id]
 
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -127,7 +127,7 @@ def get_teams():
               SELECT * FROM teams
                 """)
 
-    data = selectData(query)
+    data = select_data(query)
 
     return data
 
@@ -145,7 +145,7 @@ def get_team(id):
                 """)
 
     record = [id]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -164,7 +164,7 @@ def get_team_employees(id):
                 """)
 
     record = [id]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -185,7 +185,7 @@ def get_team_enclosures(id):
                 """)
 
     record = [id]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -200,7 +200,7 @@ def get_employees():
               SELECT employees.* FROM employees
                 """)
 
-    data = selectData(query)
+    data = select_data(query)
 
     return data
 
@@ -218,7 +218,7 @@ def get_employee(id):
                 """)
 
     record = [id]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -232,7 +232,7 @@ def get_food_supplies():
               SELECT food_supplies.* FROM food_supplies
                 """)
 
-    data = selectData(query)
+    data = select_data(query)
 
     return data
 
@@ -250,7 +250,7 @@ def get_food_supply(food_type):
                 """)
 
     record = [food_type]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -265,7 +265,7 @@ def get_dinosaurs():
               SELECT dinosaurs.* FROM dinosaurs
                 """)
 
-    data = selectData(query)
+    data = select_data(query)
 
     new_data = formate_date(data)
     return new_data
@@ -284,7 +284,7 @@ def get_dinosaur(name):
                 """)
 
     record = [name]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     new_data = formate_date(data)
     return new_data
@@ -304,7 +304,7 @@ def get_dinosaur_breed(name):
                 """)
 
     record = [name]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -321,7 +321,7 @@ def get_breeds():
               SELECT breeds.* FROM breeds
                 """)
 
-    data = selectData(query)
+    data = select_data(query)
 
     return data
 
@@ -339,7 +339,7 @@ def get_breed(name):
                 """)
 
     record = [name]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     return data
 
@@ -357,7 +357,7 @@ def get_teams_organisations():
               SELECT * FROM teams_organisations
                 """)
 
-    data = selectData(query)
+    data = select_data(query)
 
     return data
 
@@ -375,7 +375,7 @@ def get_teams_organisation_team(id_team):
                 """)
 
     record = [id_team]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     new_data = formate_date(data)
     return new_data
@@ -395,7 +395,7 @@ def get_teams_organisation_enclosure(id_enclosure):
                 """)
 
     record = [id_enclosure]
-    data = selectData(query, record)
+    data = select_data(query, record)
 
     new_data = formate_date(data)
     return new_data
