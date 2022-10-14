@@ -62,7 +62,7 @@ def postDinosaur(data):
     :param data: OBJECT REQUIRED Containing all the values to insert in the query
     :return: BOOL The boolean value that becomes true if post succeeds or false if post fails.
     """
-    post_dinosaur_query = "INSERT INTO dinosaurs(dinosaur_name, breed_name, id_enclosure, creation_date, gender, height, weigh, id_employees) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+    post_dinosaur_query = "INSERT INTO dinosaurs(dinosaur_name, breed_name, id_enclosure, creation_date, gender, height, weight, id_employees) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
     res = insert_data(post_dinosaur_query, data)
 
     return res
@@ -83,10 +83,10 @@ def postEmployee(data):
     """
     Defines the query string, then calls insertData function using data and post_employee_query as parameter
 
-    :param data: OBJECT REQUIRED The tuple containing the values of id_team, family_name,surname,phone_number,social_security_member,emergency_contact
+    :param data: OBJECT REQUIRED The tuple containing the values of id_team, family_name,surname,phone_number,social_security_number,emergency_contact
     :return: BOOL The boolean value that becomes true if post succeeds or false if post fails.
     """
-    post_employee_query = "INSERT INTO employees(id_team,family_name,surname,phone_number,social_security_member,emergency_contact) VALUES (%s,%s,%s,%s,%s,%s)"
+    post_employee_query = "INSERT INTO employees(id_team,family_name,surname,phone_number,social_security_number,emergency_contact) VALUES (%s,%s,%s,%s,%s,%s)"
     res = insert_data(post_employee_query, data)
 
     return res

@@ -19,7 +19,7 @@ def put_employees(id_employee_member, id_team, family_name, surname, phone_numbe
         query += comma+f"phone_number='{phone_number}'"
         comma = ", "
     if social_security_number:
-        query += comma+f"social_security_member='{social_security_number}'"
+        query += comma+f"social_security_number='{social_security_number}'"
         comma = ", "
     if emergency_contact:
         query += comma+f"emergency_contact='{emergency_contact}'"
