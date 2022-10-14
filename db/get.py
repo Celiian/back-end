@@ -40,36 +40,36 @@ def get_enclosures():
     return data
 
 
-def get_enclosure(id):
+def get_enclosure(enclosure_id):
     """
      Request for enclosure()
 
-    :param id: INT REQUIRED The id of the enclosure
+    :param enclosure_id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
     query = (f"""
           SELECT * FROM enclosures
           WHERE id_enclosure = %s
             """)
-    record = [id]
+    record = [enclosure_id]
 
     data = select_data(query, record)
 
     return data
 
 
-def get_enclosure_dinosaurs(id):
+def get_enclosure_dinosaurs(enclosure_id):
     """
     Request for enclosure_dinosaurs()
 
-    :param id: INT REQUIRED The id of the enclosure
+    :param enclosure_id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
     query = (f"""
           SELECT * FROM dinosaurs
           WHERE id_enclosure = %s
             """)
-    record = [id]
+    record = [enclosure_id]
     data = select_data(query, record)
     new_data = formate_date(data)
 
@@ -79,29 +79,29 @@ def get_enclosure_dinosaurs(id):
 get_enclosure_dinosaurs(2)
 
 
-def get_enclosure_teams(id):
+def get_enclosure_teams(enclosure_id):
     """
     Request for enclosure_teams()
 
-    :param id: INT REQUIRED The id of the enclosure
+    :param enclosure_id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
     query = (f"""
           SELECT teams.* FROM teams, teams_organisations
           WHERE id_enclosure = %s AND teams.id_team = teams_organisations.id_team
             """)
-    record = [id]
+    record = [enclosure_id]
 
     data = select_data(query, record)
 
     return data
 
 
-def get_enclosure_teams_employees(id):
+def get_enclosure_teams_employees(enclosure_id):
     """
     Request for enclosure_teams_employees()
 
-    :param id: INT REQUIRED The id of the enclosure
+    :param enclosure_id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
     query = (f"""
@@ -110,7 +110,7 @@ def get_enclosure_teams_employees(id):
             AND teams.id_team = teams_organisations.id_team
             AND employees.id_team = teams_organisations.id_team
             """)
-    record = [id]
+    record = [enclosure_id]
 
     data = select_data(query, record)
 
@@ -132,11 +132,11 @@ def get_teams():
     return data
 
 
-def get_team(id):
+def get_team(team_id):
     """
     Request for team()
 
-    :param id: INT REQUIRED The id of the team
+    :param team_id: INT REQUIRED The id of the team
     :return: LIST The data from the database
     """
     query = (f"""
@@ -144,17 +144,17 @@ def get_team(id):
               WHERE id_team = %s
                 """)
 
-    record = [id]
+    record = [team_id]
     data = select_data(query, record)
 
     return data
 
 
-def get_team_employees(id):
+def get_team_employees(team_id):
     """
     Request for team_employees()
 
-    :param id: INT REQUIRED The id of the team
+    :param team_id: INT REQUIRED The id of the team
     :return: LIST The data from the database
     """
     query = (f"""
@@ -163,17 +163,17 @@ def get_team_employees(id):
               AND teams.id_team = employees.id_team
                 """)
 
-    record = [id]
+    record = [team_id]
     data = select_data(query, record)
 
     return data
 
 
-def get_team_enclosures(id):
+def get_team_enclosures(team_id):
     """
     Request for team_enclosures()
 
-    :param id: INT REQUIRED The id of the team
+    :param team_id: INT REQUIRED The id of the team
     :return: LIST The data from the database
     """
     query = (f"""
@@ -184,7 +184,7 @@ def get_team_enclosures(id):
               
                 """)
 
-    record = [id]
+    record = [team_id]
     data = select_data(query, record)
 
     return data
@@ -205,11 +205,11 @@ def get_employees():
     return data
 
 
-def get_employee(id):
+def get_employee(employee_id):
     """
     Request for employee()
 
-    :param id: INT REQUIRED The id of the employee
+    :param employee_id: INT REQUIRED The id of the employee
     :return: LIST The data from the database
     """
     query = (f"""
@@ -217,10 +217,11 @@ def get_employee(id):
                WHERE id_employee_member = %s
                 """)
 
-    record = [id]
+    record = [employee_id]
     data = select_data(query, record)
 
     return data
+
 
 def get_food_supplies():
     """
@@ -241,7 +242,7 @@ def get_food_supply(food_type):
     """
     Request for food_supply()
 
-    :param id: INT REQUIRED The id of the food_supply
+    :param food_type: STR REQUIRED The id of the food_supply
     :return: LIST The data from the database
     """
     query = (f"""
@@ -271,11 +272,11 @@ def get_dinosaurs():
     return new_data
 
 
-def get_dinosaur(name):
+def get_dinosaur(dinosaur_name):
     """
     Request for dinosaurs()
 
-    :param name: STR REQUIRED The name of the dinosaur
+    :param dinosaur_name: STR REQUIRED The name of the dinosaur
     :return: LIST The data from the database
     """
     query = (f"""
@@ -283,18 +284,18 @@ def get_dinosaur(name):
               WHERE dinosaur_name = %s
                 """)
 
-    record = [name]
+    record = [dinosaur_name]
     data = select_data(query, record)
 
     new_data = formate_date(data)
     return new_data
 
 
-def get_dinosaur_breed(name):
+def get_dinosaur_breed(dinosaur_name):
     """
     Request for dinosaurs()
 
-    :param name: STR REQUIRED The name of the dinosaur
+    :param dinosaur_name: STR REQUIRED The name of the dinosaur
     :return: LIST The data from the database
     """
     query = (f"""
@@ -303,12 +304,10 @@ def get_dinosaur_breed(name):
               AND dinosaurs.breed_name = breeds.breed_name
                 """)
 
-    record = [name]
+    record = [dinosaur_name]
     data = select_data(query, record)
 
     return data
-
-
 
 
 def get_breeds():
@@ -326,11 +325,11 @@ def get_breeds():
     return data
 
 
-def get_breed(name):
+def get_breed(breed_name):
     """
     Request for breed()
 
-    :param name: STR REQUIRED The name of the breed
+    :param breed_name: STR REQUIRED The name of the breed
     :return: LIST The data from the database
     """
     query = (f"""
@@ -338,13 +337,10 @@ def get_breed(name):
               WHERE breed_name = %s
                 """)
 
-    record = [name]
+    record = [breed_name]
     data = select_data(query, record)
 
     return data
-
-
-
 
 
 def get_teams_organisations():
@@ -362,11 +358,11 @@ def get_teams_organisations():
     return data
 
 
-def get_teams_organisation_team(id_team):
+def get_teams_organisation_team(team_id):
     """
     Request for teams_organisation_team()
 
-    :param id_team: INT REQUIRED The id of the team
+    :param team_id: INT REQUIRED The id of the team
     :return: LIST The data from the database
     """
     query = (f"""
@@ -374,19 +370,18 @@ def get_teams_organisation_team(id_team):
               WHERE id_team = %s
                 """)
 
-    record = [id_team]
+    record = [team_id]
     data = select_data(query, record)
 
     new_data = formate_date(data)
     return new_data
 
 
-
-def get_teams_organisation_enclosure(id_enclosure):
+def get_teams_organisation_enclosure(enclosure_id):
     """
     Request for teams_organisation_team()
 
-    :param id_enclosure: INT REQUIRED The id of the enclosure
+    :param enclosure_id: INT REQUIRED The id of the enclosure
     :return: LIST The data from the database
     """
     query = (f"""
@@ -394,7 +389,7 @@ def get_teams_organisation_enclosure(id_enclosure):
               WHERE id_enclosure = %s
                 """)
 
-    record = [id_enclosure]
+    record = [enclosure_id]
     data = select_data(query, record)
 
     new_data = formate_date(data)
