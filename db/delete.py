@@ -170,7 +170,7 @@ def delete_employees(employee_id):
                 }
             )
 
-    data = get_team_employees(employee_id)
+    data = get_employee(employee_id)
     if not data:
         raise CustomError(
             status_code=400,
@@ -253,7 +253,7 @@ def delete_breeds(breed_name):
                 }
             )
 
-    data = get_breeds()
+    data = get_breed(breed_name)
     if not data:
         raise CustomError(
             status_code=400,
@@ -311,20 +311,37 @@ def delete_teams_organisation(id_team, id_enclosure):
             }
         )
 
-    query = (f"""       
-            DELETE FROM teams_organisations 
-            WHERE id_team = %s and id_enclosure = %s
-            """)
 
-    record = [id_team, id_enclosure]
-    res = delete_data(query, record)
+    data = get_teams_organisations()
+
+    for line in data:
+        if line[0] == id_enclosure and line[1] == id_team:
+
+            query = (f"""       
+                    DELETE FROM teams_organisations 
+                    WHERE id_team = %s and id_enclosure = %s
+                    """)
+
+            record = [id_team, id_enclosure]
+            res = delete_data(query, record)
+
+            if res["error"] != "":
+                raise CustomError(
+                    status_code=400,
+                    content={"Message": "Unexpected error",
+                             "Error": res["error"]
+                             }
+                )
+
+            return res
+
+    raise CustomError(
+        status_code=409,
+        content=
+        {
+            "Error": "This pair of id does not exist",
+        }
+    )
+
+
     
-    if res["error"] != "":
-        raise CustomError(
-            status_code=400,
-            content={"Message": "Unexpected error",
-                     "Error": res["error"]
-                     }
-        )
-    
-    return res
