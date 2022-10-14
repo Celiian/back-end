@@ -10,11 +10,11 @@ from routers import delete
 
 app = FastAPI()
 
+app.include_router(delete.router)
 app.include_router(get.router)
 app.include_router(post.router)
 app.include_router(patch.router)
 app.include_router(put.router)
-app.include_router(delete.router)
 
 
 @app.exception_handler(CustomError)

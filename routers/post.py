@@ -4,13 +4,7 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from db.post import postTeam
-from db.post import postTeamOrganisation
-from db.post import postFood
-from db.post import postBreed
-from db.post import postDinosaur
-from db.post import postEnclosure
-from db.post import postEmployee
+from db.post import *
 
 
 router = APIRouter()
