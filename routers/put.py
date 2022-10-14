@@ -7,6 +7,10 @@ from db.put import put_employees
 router = APIRouter()
 
 
+class Message(BaseModel):
+    message: str
+
+
 class ItemEmployee(BaseModel):
     """
     *insert desc here
@@ -19,12 +23,17 @@ class ItemEmployee(BaseModel):
     emergency_contact: str | None
 
 
-@router.put("/employees/{id_employee_member}")
+@router.put("/employees/{id_employee_member}",
+            status_code=200,
+            description="Add a team organisation",
+            responses={
+                400: {"model": Message},
+            })
 async def employees(id_employee_member: int, body: ItemEmployee):
     """
     *insert desc here
 
-    :param id_employee_member: INT REQUIRED Id of the employee whose values are going to be updated
+    :param id_employee_member: INT REQUIRED ID of the employee whose values are going to be updated
     :param body: OBJECT REQUIRED Contains all the updated values
     :return: JSON *insert here
     """
@@ -37,13 +46,7 @@ async def employees(id_employee_member: int, body: ItemEmployee):
                         body.social_security_number,
                         body.emergency_contact)
 
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "Table updated"}
-        )
-    else:
-        return JSONResponse(
-            status_code=404,
-            content={"Message": "Table not updated"}
-        )
+    return JSONResponse(
+        status_code=201,
+        content=res["message"]
+    )

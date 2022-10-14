@@ -27,7 +27,7 @@ def update_data(query, record=None):
     try:
         my_cursor.execute(query, record)
         db.commit()
-        res["message"] = "Deleted successfully"
+        res["message"] = "Updated successfully"
         return res
     except mc.Error as error:
         res["message"] = "Error"
@@ -71,13 +71,19 @@ def insert_data(query, record):
                     database='jurassic')
 
     my_cursor = db.cursor()
+    res = {
+        "message": "",
+        "error": ""
+    }
     try:
         my_cursor.execute(query, record)
         db.commit()
-        return True
+        res["message"] = "Created successfully"
+        return res
     except mc.Error as error:
-        print(error)
-        return False
+        res["message"] = "Error"
+        res["error"] = error.msg
+        return res
 
 
 def delete_data(query, record=None):

@@ -1,5 +1,5 @@
 from db.db_params import *
-
+from exception_error.custom_exception import CustomError
 
 def put_employees(id_employee_member, id_team, family_name, surname, phone_number, social_security_number,
                   emergency_contact):
@@ -27,6 +27,16 @@ def put_employees(id_employee_member, id_team, family_name, surname, phone_numbe
     query += f"WHERE id_employee_member = {id_employee_member};"
 
     print(query)
-    return update_data(query)
+    res = update_data(query)
+
+    if res["error"] != "":
+        raise CustomError(
+            status_code=400,
+            content={"Message": "Unexpected error",
+                     "Error": res["error"]
+                     }
+        )
+
+    return res
 
 

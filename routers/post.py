@@ -22,12 +22,13 @@ class ItemTeamOrganisation(BaseModel):
 
 
 @router.post("/team_organisation",
-            status_code=200,
-            description="Add a team organisation",
-            responses={
-               400: {"model": Message}
-            })
-def post_team_organisation(body: ItemTeamOrganisation):
+             status_code=201,
+             description="Add a team organisation",
+             responses={
+                 400: {"model": Message},
+                 409: {"model": Message}
+             })
+def team_organisation(body: ItemTeamOrganisation):
     """
     Calls postTeamOrganisation function using url parameters as parameter, then returns whether post fails or succeeds
 
@@ -35,17 +36,12 @@ def post_team_organisation(body: ItemTeamOrganisation):
     :return: JSON REQUIRED The response with a status code and a message
     """
     data = (body.id_enclosure, body.id_team)
-    res = postTeamOrganisation(data)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content="Successful"
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content="Failed"
-        )
+    res = post_team_organisation(data)
+
+    return JSONResponse(
+        status_code=201,
+        content=res["message"]
+    )
 
 
 class ItemTeam(BaseModel):
@@ -57,12 +53,13 @@ class ItemTeam(BaseModel):
 
 
 @router.post("/teams",
-            status_code=200,
-            description="Add a team",
-            responses={
-               400: {"model": Message}
-            })
-def post_team(body: ItemTeam):
+             status_code=201,
+             description="Add a team",
+             responses={
+                 400: {"model": Message},
+                 409: {"model": Message}
+             })
+def team(body: ItemTeam):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
 
@@ -70,17 +67,12 @@ def post_team(body: ItemTeam):
     :return: JSON REQUIRED The response with a status code and a message
     """
     data = (body.team_type, body.vehicle_type)
-    res = postTeam(data)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content="Successful"
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content="Failed"
-        )
+    res = post_team(data)
+
+    return JSONResponse(
+        status_code=201,
+        content=res["message"]
+    )
 
 
 class ItemFood(BaseModel):
@@ -92,12 +84,13 @@ class ItemFood(BaseModel):
 
 
 @router.post("/food_supplies",
-             status_code=200,
+             status_code=201,
              description="Add a food type",
              responses={
-                 400: {"model": Message}
+                 400: {"model": Message},
+                 409: {"model": Message}
              })
-def post_food(body: ItemFood):
+def food(body: ItemFood):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
 
@@ -105,17 +98,12 @@ def post_food(body: ItemFood):
     :return: JSON REQUIRED The response with a status code and a message
     """
     data = (body.food_type, body.price)
-    res = postFood(data)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content="Successful"
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content="Failed"
-        )
+    res = post_food(data)
+
+    return JSONResponse(
+        status_code=201,
+        content=res["message"]
+    )
 
 
 class ItemBreed(BaseModel):
@@ -131,12 +119,13 @@ class ItemBreed(BaseModel):
 
 
 @router.post("/breed",
-             status_code=200,
+             status_code=201,
              description="Add a breed of dinosaurs",
              responses={
-                 400: {"model": Message}
+                 400: {"model": Message},
+                 409: {"model": Message}
              })
-def post_breed(body: ItemBreed):
+def breed(body: ItemBreed):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
 
@@ -144,17 +133,12 @@ def post_breed(body: ItemBreed):
     :return: JSON REQUIRED The response with a status code and a message
     """
     data = (body.breed_name, body.food_eaten_daily, body.regime_type, body.era, body.biome_needed, body.price)
-    res = postBreed(data)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content="Successful"
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content="Failed"
-        )
+    res = post_breed(data)
+
+    return JSONResponse(
+        status_code=201,
+        content=res["message"]
+    )
 
 
 class ItemDinosaur(BaseModel):
@@ -172,30 +156,29 @@ class ItemDinosaur(BaseModel):
 
 
 @router.post("/dinosaurs",
-             status_code=200,
+             status_code=201,
              description="Add a dinosaur",
              responses={
-                 400: {"model": Message}
+                 400: {"model": Message},
+                 409: {"model": Message}
              })
-def post_dinosaur(body: ItemDinosaur):
+def dinosaur(body: ItemDinosaur):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
 
     :param body: CLASS OBJECT REQUIRED Contains all parameters of the post query
     :return: JSON REQUIRED The response with a status code and a message
     """
-    data = (body.dinosaur_name, body.breed_name, body.id_enclosure, body.creation_date, body.gender, body.height, body.weight, body.id_employees)
-    res = postDinosaur(data)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content="Successful"
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content="Failed"
-        )
+    data = (
+        body.dinosaur_name, body.breed_name, body.id_enclosure, body.creation_date, body.gender, body.height,
+        body.weight,
+        body.id_employees)
+    res = post_dinosaur(data)
+
+    return JSONResponse(
+        status_code=201,
+        content=res["message"]
+    )
 
 
 class ItemEnclosure(BaseModel):
@@ -207,12 +190,13 @@ class ItemEnclosure(BaseModel):
 
 
 @router.post("/enclosures",
-             status_code=200,
+             status_code=201,
              description="Add an enclosure",
              responses={
-                 400: {"model": Message}
+                 400: {"model": Message},
+                 409: {"model": Message}
              })
-def post_enclosure(body: ItemEnclosure):
+def enclosure(body: ItemEnclosure):
     """
     Calls postEnclosure function using url parameters as parameter, then returns whether post fails or succeeds
 
@@ -221,17 +205,12 @@ def post_enclosure(body: ItemEnclosure):
     :return: JSON The response with a status code and a message
     """
     data = (body.biome, body.maintenance_cost)
-    res = postEnclosure(data)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content="Successful"
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content="Failed"
-        )
+    res = post_enclosure(data)
+
+    return JSONResponse(
+        status_code=201,
+        content=res["message"]
+    )
 
 
 class ItemEmployee(BaseModel):
@@ -245,13 +224,15 @@ class ItemEmployee(BaseModel):
     social_security_number: str
     emergency_contact: str
 
+
 @router.post("/employees",
-             status_code=200,
+             status_code=201,
              description="Add an employee",
              responses={
-                 400: {"model": Message}
+                 400: {"model": Message},
+                 409: {"model": Message}
              })
-def post_employee(body: ItemEmployee):
+def employee(body: ItemEmployee):
     """
     Calls postEmployee function using url parameters as parameter, then returns whether post fails or succeeds
 
@@ -263,15 +244,11 @@ def post_employee(body: ItemEmployee):
     :param emergency_contact: STRING REQUIRED guess...
     :return: JSON REQUIRED The response with a status code and a message
     """
-    data = (body.id_team, body.family_name, body.surname, body.phone_number, body.social_security_number, body.emergency_contact)
-    res = postEmployee(data)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content="Successful"
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content="Failed"
-        )
+    data = (body.id_team, body.family_name, body.surname, body.phone_number, body.social_security_number,
+            body.emergency_contact)
+    res = post_employee(data)
+
+    return JSONResponse(
+        status_code=201,
+        content=res["message"]
+    )
