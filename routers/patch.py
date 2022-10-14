@@ -7,12 +7,21 @@ from db.patch import *
 router = APIRouter()
 
 
+class Message(BaseModel):
+    message: str
+
+
 class Item(BaseModel):
     cost: str | None
     biome: str | None
 
 
-@router.patch("/enclosures/{id_enclosure}")
+@router.patch("/enclosures/{id_enclosure}",
+              status_code=200,
+              description="Edit an enclosure",
+              responses={
+                  400: {"model": Message}
+              })
 async def enclosure(id_enclosure: int, body: Item):
     """
     Modify an enclosure
@@ -46,7 +55,12 @@ class Breed(BaseModel):
     price: int | None
 
 
-@router.patch("/breeds/{name}")
+@router.patch("/breeds/{name}",
+              status_code=200,
+              description="Edit an breed",
+              responses={
+                  400: {"model": Message}
+              })
 def breed(name: str, body: Breed):
     """
     Edit breed
@@ -60,7 +74,6 @@ def breed(name: str, body: Breed):
     era = body.era
     biome_needed = body.biome_needed
     price = body.price
-
 
     res = patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price)
 
@@ -84,7 +97,12 @@ class Dino(BaseModel):
     id_employees: int | None
 
 
-@router.patch("/dinosaurs/{name}")
+@router.patch("/dinosaurs/{name}",
+              status_code=200,
+              description="Edit an dinosaur",
+              responses={
+                  400: {"model": Message}
+              })
 def dinosaurs(name: str, body: Dino):
     """
     Edit dinosaur information
@@ -120,7 +138,12 @@ class Employee(BaseModel):
     emergency_contact: str | None
 
 
-@router.patch("/employees/{id_employees}")
+@router.patch("/employees/{id_employees}",
+              status_code=200,
+              description="Edit an employee",
+              responses={
+                  400: {"model": Message}
+              })
 def employees(id_employees: int, body: Employee):
     """
     Edit employees information
@@ -133,7 +156,6 @@ def employees(id_employees: int, body: Employee):
     family_name = body.family_name
     phone_number = body.phone_number
     emergency_contact = body.emergency_contact
-
 
     res = patch_employees(id_employees, id_team, family_name, phone_number, emergency_contact)
 
@@ -154,7 +176,12 @@ class Teams(BaseModel):
     vehicle_type: str | None
 
 
-@router.patch("/teams/{id_teams}")
+@router.patch("/teams/{id_teams}",
+              status_code=200,
+              description="Edit a team",
+              responses={
+                  400: {"model": Message}
+              })
 def team(id_teams: int, body: Teams):
     """
     Edit some team information
@@ -187,7 +214,12 @@ class TeamsOrga(BaseModel):
     new_id_team: int | None
 
 
-@router.patch("/teams_organisation")
+@router.patch("/teams_organisation",
+              status_code=200,
+              description="Edit a team organisation (link between teams and enclosures)",
+              responses={
+                  400: {"model": Message}
+              })
 def teams_organisation(body: TeamsOrga):
     """
     Edit the link between team and enclosure
@@ -200,7 +232,6 @@ def teams_organisation(body: TeamsOrga):
     id_enclosure = body.id_enclosure
     new_id_enclosure = body.new_id_enclosure
     new_id_team = body.new_id_team
-
 
     res = patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team)
 
@@ -220,7 +251,12 @@ class FoodSupplies(BaseModel):
     price: int | None
 
 
-@router.patch("/food_supplies/{food_type}")
+@router.patch("/food_supplies/{food_type}",
+              status_code=200,
+              description="Edit a food supplies price",
+              responses={
+                  400: {"model": Message}
+              })
 def food_supplies(food_type: str, body: FoodSupplies):
     """
     Edit food type price
