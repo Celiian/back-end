@@ -68,18 +68,10 @@ async def food_supply(food_name: str):
     :return: JSON A status code and the data
     """
     res = delete_food_supply(food_name)
-    if res == "True":
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "deleted successfully"}
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content={"Message": "this name does not exist",
-                     "Error": res
-                     }
-        )
+    return JSONResponse(
+        status_code=200,
+        content={"Message": res["message"]}
+    )
 
 
 @router.delete("/employees/{id}",
@@ -96,18 +88,10 @@ async def employees(id: int):
     :return: JSON A status code and the data
     """
     res = delete_employees(id)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "deleted successfully"}
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content={"Message": "this id does not exist",
-                     "Error": res
-                     }
-        )
+    return JSONResponse(
+        status_code=200,
+        content={"Message": res["message"]}
+    )
 
 
 @router.delete("/dinosaurs/{name}",
@@ -124,18 +108,10 @@ async def dinosaurs(name: str):
     :return: JSON A status code and the data
     """
     res = delete_dinosaurs(name)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "deleted successfully"}
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content={"Message": "this name does not exist",
-                     "Error": res
-                     }
-        )
+    return JSONResponse(
+        status_code=200,
+        content={"Message": res["message"]}
+    )
 
 
 @router.delete("/breeds/{name}",
@@ -152,18 +128,10 @@ async def breeds(name: str):
     :return: JSON A status code and the data
     """
     res = delete_breeds(name)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "deleted successfully"}
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content={"Message": "this name does not exist",
-                     "Error": res
-                     }
-        )
+    return JSONResponse(
+        status_code=200,
+        content={"Message": res["message"]}
+    )
 
 
 class item(BaseModel):
@@ -185,15 +153,8 @@ async def teams_organisation(body: item):
     :return: JSON A status code and the data
     """
     res = delete_teams_organisation(body.id_team, body.id_enclosure)
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "deleted successfully"}
-        )
-    else:
-        return JSONResponse(
-            status_code=400,
-            content={"Message": "one of the id does not exist",
-                     "Error": res
-                     }
-        )
+    return JSONResponse(
+        status_code=200,
+        content={"Message": res["message"]}
+    )
+

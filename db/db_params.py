@@ -4,7 +4,7 @@ from password import returnPassword
 password = returnPassword()
 
 
-def update_data(query, record):
+def update_data(query, record=None):
     """
     Connect to the database and perform a query
 

@@ -1,4 +1,4 @@
-# DROP TABLE teams, enclosures, employees, dinosaurs, breeds, food_supplies, teams_organisations;
+#DROP TABLE teams, enclosures, employees, dinosaurs, breeds, food_supplies, teams_organisations;
 
 CREATE TABLE teams (
     id_team INT auto_increment,
@@ -61,7 +61,7 @@ CREATE TABLE dinosaurs
     creation_date DATE,
     gender        VARCHAR(100),
     height        INT,
-    weigh         INT,
+    weight         INT,
     id_employees      INT,
     PRIMARY KEY (dinosaur_name),
     FOREIGN KEY (breed_name) REFERENCES breeds (breed_name),
