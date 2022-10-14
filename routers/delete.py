@@ -40,7 +40,7 @@ async def enclosures(enclosure_id: int):
     )
 
 
-@router.delete("/teams/{id}",
+@router.delete("/teams/{team_id}",
                status_code=200,
                description="Delete a team",
                responses={
@@ -87,7 +87,7 @@ async def food_supply(food_name: str):
     )
 
 
-@router.delete("/employees/{id}",
+@router.delete("/employees/{employee_id}",
                status_code=200,
                description="Delete a food supply",
                responses={
@@ -111,7 +111,7 @@ async def employees(employee_id: int):
     )
 
 
-@router.delete("/dinosaurs/{name}",
+@router.delete("/dinosaurs/{dinosaur_name}",
                status_code=200,
                description="Delete a food supply",
                responses={
@@ -134,7 +134,7 @@ async def dinosaurs(dinosaur_name: str):
     )
 
 
-@router.delete("/breeds/{name}",
+@router.delete("/breeds/{breed_name}",
                status_code=200,
                description="Delete a food supply",
                responses={

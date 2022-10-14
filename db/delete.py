@@ -10,6 +10,18 @@ def delete_enclosure(enclosure_id):
     :return: DICT The succes message is the query went well
     """
 
+
+    data = get_dinosaurs()
+    for i in range(0, len(data)):
+        if data[i][2] == enclosure_id:
+            raise CustomError(
+                status_code=400,
+                content=
+                {
+                    "Error": "You can't delete a enclosure where dinosaurs still live",
+                }
+            )
+
     if not get_enclosure(enclosure_id):
         raise CustomError(
             status_code=400,
@@ -63,13 +75,21 @@ def delete_team(team_id):
                 "Error": "This team does not exist",
             }
         )
+    query = ""
+    data = get_teams_organisation_team(team_id)
+    if not data:
+        query = (f"""       
+           DELETE FROM teams
+           WHERE id_team= %s;
+                   """)
 
-    query = (f"""       
-    DELETE teams_organisations, teams FROM teams_organisations
-    INNER JOIN teams
-    ON teams.id_team = teams_organisations.id_team
-    WHERE teams_organisations.id_team= %s;
-            """)
+    else :
+        query = (f"""       
+        DELETE teams_organisations, teams FROM teams_organisations
+        INNER JOIN teams
+        ON teams.id_team = teams_organisations.id_team
+        WHERE teams_organisations.id_team= %s;
+                """)
 
     record = [team_id]
     res = delete_data(query, record)
@@ -271,24 +291,23 @@ def delete_teams_organisation(id_team, id_enclosure):
     :return: DICT The succes message is the query went well
     """
 
-    data = get_dinosaurs()
-    for i in range(0, len(data)):
-        if data[i][1] == id:
-            raise CustomError(
-                status_code=400,
-                content=
-                {
-                    "Error": "There are still dinosaurs of this breed alive",
-                }
-            )
-
-    data = get_breeds()
+    data = get_team(id_team)
     if not data:
         raise CustomError(
-            status_code=400,
+            status_code=409,
             content=
             {
-                "Error": "This breed does not exist",
+                "Error": "The team id does not exist",
+            }
+        )
+
+    data = get_enclosure(id_enclosure)
+    if not data:
+        raise CustomError(
+            status_code=409,
+            content=
+            {
+                "Error": "The enclosure id does not exist",
             }
         )
 
