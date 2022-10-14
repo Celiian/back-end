@@ -11,6 +11,16 @@ def patch_enclosures(id_enclosure, cost, biome):
     :param biome: STRING OPTIONAL biome of an enclosure
     :return: BOOLEAN Table updated or not
     """
+
+    if not get_enclosure(id_enclosure):
+        raise CustomError(
+            status_code=409,
+            content=
+            {
+                "Error": "This id does not exist",
+            }
+        )
+
     query = "UPDATE enclosures SET"
     record = []
     if cost:
@@ -46,6 +56,16 @@ def patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price):
     :param price: INT OPTIONAL breed price (/kg)
     :return: BOOLEAN Table updated or not
     """
+
+    if not get_breed(name):
+        raise CustomError(
+            status_code=409,
+            content=
+            {
+                "Error": "This name does not exist",
+            }
+        )
+
     query = "UPDATE breeds SET"
     record = []
     preceded = False
@@ -105,6 +125,16 @@ def patch_dinosaurs(dinosaur_name, id_enclosure, gender, height, weight, id_empl
     :param id_employees: INT OPTIONAL dinosaur employee id
     :return: BOOLEAN Table updated or not
     """
+
+    if not get_dinosaur(dinosaur_name):
+        raise CustomError(
+            status_code=409,
+            content=
+            {
+                "Error": "This id does not exist",
+            }
+        )
+
     query = "UPDATE dinosaurs SET"
     record = []
     preceded = False
