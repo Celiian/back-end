@@ -1,11 +1,10 @@
 # back-end
 
-## GET 
+## GET
 
 ``` /enclosures```
- 
-Send all existing enclosures
 
+Send all existing enclosures
 
 ``` /enclosures/{id}```
 
@@ -27,10 +26,9 @@ Send all employees of an enclosure
 
 Send all existing teams
 
-```/teams/{id}```	
+```/teams/{id}```
 
 Send one team
-
 
 ```/teams/{id}/employees```
 
@@ -52,7 +50,6 @@ Send one employee
 
 Send all food supplies
 
-
 ```/food_supplies/{id}```
 
 Send on food supply
@@ -61,17 +58,15 @@ Send on food supply
 
 Send all dinosaurs alive
 
-
 ```/dinosaurs/{id}```
 
 Send one dinosaur
-
 
 ```/dinosaurs/{id}/breed```
 
 Send the breed of a dinosaur
 
-```/breeds``` 
+```/breeds```
 
 Send all breeds
 
@@ -79,94 +74,109 @@ Send all breeds
 
 Send one breed
 
+```/teams_organisation```
+
+Send all teams_organisation
+
+```/teams_organisation/{id}```
+
+Send one teams_organisation
 
 ## PUT
+All data are passed in the body
 
-
-```/employees/{id_employees} donnée body json```
+```/employees/{id_employees}```
 
 Replace all employee’s data
 
-## POST 
+## POST
+All data are passed in the body
 
-```/enclosures/ et données dans le body json```
+```/enclosures/```
 
-   Create new enclosure
+Create new enclosure
 
-```/dinosaurs/{data}```
+```/dinosaurs/```
 
-   Create new dinosaur
+Create new dinosaur
 
-```/breeds/{data}```
+```/breeds/```
 
-   Create new dinosaur breed
+Create new dinosaur breed
 
-```/food_supplies/{data}```
+```/food_supplies/```
 
-   Create new food type
+Create new food type
 
-```/teams/{data}```
+```/teams/```
 
-   Create new team
+Create new team
 
-```/employees/{data}```
+```/employees/```
 
-   Create new employee
+Create new employee
 
-## PATCH 
+```/teams_organisation/```
 
-```/enclosures/{id}donnée body json```
-    
+Create one teams_organisation
+
+## PATCH
+All data are passed in the body
+
+```/enclosures/{id}```
+
 Edit an enclosure
 
-
-```/dinosaurs/{id} donnée body json```
+```/dinosaurs/{id}```
 
 Edit an dinosaur
 
-
-```/breeds{id} donnée body json```
+```/breeds{id}```
 
 Edit a breed
 
-
-```/food_supplies/{id} donnée body json```
+```/food_supplies/{id```
 
 edit a food supply
 
-
-```/teams/{id} donnée body json```
+```/teams/{id}```
 
 Edit a team
 
-
-```/employees/{id} donnée body json```
+```/employees/{id}```
 
 Edit an employee
 
+```/teams_organisation/{id}```
+
+Edit one teams_organisation
 
 ## DELETE
 
-```/enclosures/ et données dans le body json```
+```/enclosures/{id}```
 
-   Delete new enclosure
+Delete new enclosure
 
-```/dinosaurs/{data}```
+```/dinosaurs/{id}```
 
-   Delete new dinosaur
+Delete new dinosaur
 
-```/breeds/{data}```
+```/breeds/{id}```
 
-   Delete new dinosaur breed
+Delete new dinosaur breed
 
-```/food_supplies/{data}```
+```/food_supplies/{id}```
 
-   Delete new food type
+Delete new food type
 
-```/teams/{data}```
+```/teams/{id}```
 
-   Delete new team
+Delete new team
 
-```/employees/{data}```
+```/employees/{id}```
 
-   Delete new employee
+Delete new employee
+
+```/teams_organisation/{id}```
+
+Delete one teams_organisation
