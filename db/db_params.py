@@ -12,18 +12,27 @@ def update_data(query, record=None):
     :param query: STRING REQUIRED the query to be made
     :return:  BOOLEAN True if the query is done False if there is a problem
     """
+
+    record = None
     db = mc.connect(user='root',
                     password=password,
                     host='127.0.0.1',
                     database='jurassic')
 
     my_cursor = db.cursor()
+    res = {
+        "message": "",
+        "error": ""
+    }
     try:
         my_cursor.execute(query, record)
         db.commit()
-        return True
-    except mc.Error:
-        return False
+        res["message"] = "Deleted successfully"
+        return res
+    except mc.Error as error:
+        res["message"] = "Error"
+        res["error"] = error.msg
+        return res
 
 
 def select_data(query, record=None):

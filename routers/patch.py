@@ -217,7 +217,7 @@ def teams_organisation(body: TeamsOrga):
 
 
 class FoodSupplies(BaseModel):
-    price: int
+    price: int | None
 
 
 @router.patch("/food_supplies/{food_type}")

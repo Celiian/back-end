@@ -1,4 +1,5 @@
 from db.get import *
+from exception_error.custom_exception import CustomError
 
 
 def patch_enclosures(id_enclosure, cost, biome):
@@ -12,15 +13,22 @@ def patch_enclosures(id_enclosure, cost, biome):
     """
     query = "UPDATE enclosures SET"
     record = []
-    if cost is not None:
+    if cost:
         record.append(cost)
         query += " maintenance_cost = %s"
 
-    if biome is not None:
+    if biome:
         if cost:
             query += ","
         record.append(biome)
         query += " biome = %s"
+
+    if biome is None and cost is None:
+        raise CustomError(
+            status_code=400,
+            content="Please choose an existing value"
+        )
+
     record.append(id_enclosure)
     query += " WHERE id_enclosure = %s"
     return update_data(query, record)
@@ -74,6 +82,12 @@ def patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price):
         record.append(price)
         query += " price = %s"
 
+    if food_eaten_daily is None and regime_type is None and era is None and biome_needed is None and price is None:
+        raise CustomError(
+            status_code=400,
+            content="Please choose an existing value"
+        )
+
     record.append(name)
     query += " WHERE breed_name = %s"
     return update_data(query, record)
@@ -94,8 +108,6 @@ def patch_dinosaurs(dinosaur_name, id_enclosure, gender, height, weight, id_empl
     query = "UPDATE dinosaurs SET"
     record = []
     preceded = False
-
-    print(gender, weight, dinosaur_name)
 
     if gender:
         record.append(gender)
@@ -129,9 +141,15 @@ def patch_dinosaurs(dinosaur_name, id_enclosure, gender, height, weight, id_empl
             query += ","
         record.append(id_employees)
         query += " id_employees = %s"
+
+    if id_enclosure is None and gender is None and height is None and weight is None and id_employees is None:
+        raise CustomError(
+            status_code=400,
+            content="Please choose an existing value"
+        )
+
     record.append(dinosaur_name)
     query += " WHERE dinosaur_name = %s"
-    print(query)
     return update_data(query, record)
 
 
@@ -173,6 +191,13 @@ def patch_employees(id_employee, id_team, family_name, phone_number, emergency_c
             query += ","
         record.append(emergency_contact)
         query += " emergency_contact = %s"
+
+    if id_team is None and family_name is None and phone_number is None and emergency_contact is None:
+        raise CustomError(
+            status_code=400,
+            content="Please choose an existing value"
+        )
+
     record.append(id_employee)
     query += " WHERE id_employee_member = %s"
     print(query)
@@ -198,6 +223,13 @@ def patch_teams(id_team, team_type, vehicle_type):
             query += ","
         record.append(vehicle_type)
         query += " vehicle_type = %s"
+
+    if team_type is None and vehicle_type is None:
+        raise CustomError(
+            status_code=400,
+            content="Please choose an existing value"
+        )
+
     record.append(id_team)
     query += " WHERE id_team = %s"
     print(query)
@@ -230,7 +262,6 @@ def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
         query += " WHERE id_enclosure = %s"
         record.append(id_team)
         query += " AND id_team = %s"
-    print(query)
     return update_data(query, record)
 
 
@@ -247,8 +278,13 @@ def patch_food_supplies(food_type, price):
     if price:
         record.append(price)
         query += " price = %s"
+    else:
+        raise CustomError(
+            status_code=400,
+            content="Please choose an existing value"
+        )
+
     record.append(food_type)
     query += " WHERE food_type = %s"
 
-    print(query)
     return update_data(query, record)
