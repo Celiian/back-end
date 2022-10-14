@@ -8,12 +8,11 @@ def update_data(query, record=None):
     """
     Connect to the database and perform a query
 
-    :param record:
+    :param record: LIST OPTIONAL data to be put in the request
     :param query: STRING REQUIRED the query to be made
-    :return:  BOOLEAN True if the query is done False if there is a problem
+    :return: BOOLEAN True if the query is done False if there is a problem
     """
 
-    record = None
     db = mc.connect(user='root',
                     password=password,
                     host='127.0.0.1',
@@ -40,7 +39,7 @@ def select_data(query, record=None):
     Connect to the database and perform a query
 
     :param query: STRING REQUIRED the query to be made
-    :param record: STRING OPTIONAL
+    :param record: LIST OPTIONAL data to be put in the request
     :return: LIST all the data from the query
     """
 
@@ -62,7 +61,7 @@ def insert_data(query, record):
           connect to the database and perform a query
 
           :param query:STRING REQUIRED the query to be made
-          :param record: STRING OPTIONAL
+          :param record: LIST OPTIONAL data to be put in the request
           :return: BOOLEAN True if the query is done False if there is a problem
       """
     db = mc.connect(user='root',
@@ -91,7 +90,7 @@ def delete_data(query, record=None):
     connect to the database and perform a query
 
     :param query:STRING REQUIRED the query to be made
-    :param record: STRING OPTIONAL
+    :param record: LIST OPTIONAL data to be put in the request
     :return:  BOOLEAN True if the query is done False if there is a problem
     """
 

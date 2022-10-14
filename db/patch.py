@@ -25,8 +25,8 @@ def patch_enclosures(id_enclosure, cost, biome):
 
     if biome is None and cost is None:
         raise CustomError(
-            status_code=400,
-            content="Please choose an existing value"
+            status_code=409,
+            content={"Message": "Please choose an existing value"}
         )
 
     record.append(id_enclosure)
@@ -84,8 +84,8 @@ def patch_breeds(name, food_eaten_daily, regime_type, era, biome_needed, price):
 
     if food_eaten_daily is None and regime_type is None and era is None and biome_needed is None and price is None:
         raise CustomError(
-            status_code=400,
-            content="Please choose an existing value"
+            status_code=409,
+            content={"Message": "Please choose an existing value"}
         )
 
     record.append(name)
@@ -144,8 +144,8 @@ def patch_dinosaurs(dinosaur_name, id_enclosure, gender, height, weight, id_empl
 
     if id_enclosure is None and gender is None and height is None and weight is None and id_employees is None:
         raise CustomError(
-            status_code=400,
-            content="Please choose an existing value"
+            status_code=409,
+            content={"Message": "Please choose an existing value"}
         )
 
     record.append(dinosaur_name)
@@ -164,6 +164,16 @@ def patch_employees(id_employee, id_team, family_name, phone_number, emergency_c
     :param emergency_contact: STRING OPTIONAL
     :return: BOOLEAN Table updated or not
     """
+
+    if not get_employee(id_employee):
+        raise CustomError(
+            status_code=409,
+            content=
+            {
+                "Error": "This id does not exist",
+            }
+        )
+
     query = "UPDATE employees SET"
     record = []
     preceded = False
@@ -194,13 +204,14 @@ def patch_employees(id_employee, id_team, family_name, phone_number, emergency_c
 
     if id_team is None and family_name is None and phone_number is None and emergency_contact is None:
         raise CustomError(
-            status_code=400,
-            content="Please choose an existing value"
+            status_code=409,
+            content={"Message": "Please choose an existing value"}
         )
 
     record.append(id_employee)
     query += " WHERE id_employee_member = %s"
     print(query)
+    print(record)
     return update_data(query, record)
 
 
@@ -213,6 +224,17 @@ def patch_teams(id_team, team_type, vehicle_type):
     :param vehicle_type: STRING OPTIONAL type of vehicle for a team
     :return: BOOLEAN Table updated or not
     """
+
+
+    if not get_team(id_team):
+        raise CustomError(
+            status_code=409,
+            content=
+            {
+                "Error": "This id does not exist",
+            }
+        )
+
     query = "UPDATE teams SET"
     record = []
     if team_type:
@@ -226,8 +248,8 @@ def patch_teams(id_team, team_type, vehicle_type):
 
     if team_type is None and vehicle_type is None:
         raise CustomError(
-            status_code=400,
-            content="Please choose an existing value"
+            status_code=409,
+            content={"Message": "Please choose an existing value"}
         )
 
     record.append(id_team)
@@ -246,6 +268,17 @@ def patch_teams_orga(id_enclosure, id_team, new_id_enclosure, new_id_team):
     :param new_id_team: INT OPTIONAL the new id to be put in the table
     :return: BOOLEAN Table updated or not
     """
+
+
+    if not get_enclosure(id_enclosure):
+        raise CustomError(
+            status_code=409,
+            content=
+            {
+                "Error": "This id does not exist",
+            }
+        )
+
 
     query = "UPDATE teams_organisations SET"
     record = []
@@ -273,6 +306,17 @@ def patch_food_supplies(food_type, price):
     :param price: STRING REQUIRED food price (/kg)
     :return: BOOLEAN Table updated or not
     """
+
+    if not get_food_supply(food_type):
+        raise CustomError(
+            status_code=409,
+            content=
+            {
+                "Error": "This id does not exist",
+            }
+        )
+
+
     query = "UPDATE food_supplies SET"
     record = []
     if price:
@@ -280,8 +324,8 @@ def patch_food_supplies(food_type, price):
         query += " price = %s"
     else:
         raise CustomError(
-            status_code=400,
-            content="Please choose an existing value"
+            status_code=409,
+            content={"Message": "Please choose an existing value"}
         )
 
     record.append(food_type)

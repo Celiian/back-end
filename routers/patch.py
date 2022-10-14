@@ -172,16 +172,11 @@ def employees(id_employees: int, body: Employee):
 
     res = patch_employees(id_employees, id_team, family_name, phone_number, emergency_contact)
 
-    if res:
-        return JSONResponse(
-            status_code=200,
-            content={"Message": "Table updated"}
-        )
-    else:
-        return JSONResponse(
-            status_code=404,
-            content={"Message": "Table not updated"}
-        )
+    return JSONResponse(
+        status_code=200,
+        content=res["message"]
+    )
+
 
 
 class Teams(BaseModel):
