@@ -1,2 +1,2 @@
 def returnPassword():
-    return "Fontaine2012"
+    return ""
